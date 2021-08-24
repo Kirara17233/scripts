@@ -1,0 +1,11 @@
+[Unit]
+Description="install"
+
+[Service]
+Type=idle
+User=root
+Group=root
+ExecStart=/step2.sh
+
+[Install]
+WantedBy=multi-user.target
