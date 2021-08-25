@@ -41,9 +41,9 @@ genfstab -U /mnt >> /mnt/etc/fstab
 # 下载后续脚本
 for loop in 1 2
 do
-    curl -o /mnt/step$loop.sh "https://raw.githubusercontent.com/Kirara17233/config/main/step$loop.sh"
+    curl -o /mnt/step$loop.sh "https://raw.githubusercontent.com/Kirara17233/script/main/step$loop.sh"
 done
-curl -o /mnt/usr/lib/systemd/system/install.service "https://raw.githubusercontent.com/Kirara17233/config/main/install.service"
+curl -o /mnt/usr/lib/systemd/system/install.service "https://raw.githubusercontent.com/Kirara17233/script/main/install.service"
 chmod +x /mnt/step*.sh
 sed -i "s|#rootpw|$1|g" /mnt/step*.sh
 sed -i "s|#user|$2|g" /mnt/step*.sh
