@@ -27,9 +27,9 @@ EOF
 
 # 下载vim-plug
 mkdir /etc/xdg/nvim/autoload
-curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo /usr/share/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 echo "
-call plug#begin('~/.nvim/plugged')
+call plug#begin('/usr/share/nvim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs'
@@ -41,7 +41,7 @@ let g:airline_powerline_fonts = 1
 \"let g:airline_theme='deus'
 let g:airline_theme='bubblegum'
 \"let g:airline_theme='minimalist'
-set nu" >> /etc/xdg/nvim/sysinit.vim
+set nu" >> /usr/share/nvim/archlinux.vim
 
 # 安装软件
 su $user <<EOF
