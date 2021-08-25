@@ -39,7 +39,7 @@ sed -i "s|/bin/bash|/usr/bin/zsh|g" /mnt/etc/passwd
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # 下载后续脚本
-for loop in 1 2 3
+for loop in 1 2
 do
     curl -o /mnt/step$loop.sh "https://raw.githubusercontent.com/Kirara17233/config/main/step$loop.sh"
 done
