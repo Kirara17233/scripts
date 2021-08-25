@@ -1,7 +1,6 @@
 #!/usr/bin/zsh
 
 rootpw=#rootpw
-user=#user
 token=#token
 
 gitrepo=https://raw.githubusercontent.com/Kirara17233/config/main
@@ -18,11 +17,15 @@ ln -s /usr/bin/nvim /usr/bin/vim
 sed -i "s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) NOPASSWD:ALL|g" /etc/sudoers
 
 # 配置
+mkdir /etc/git
+curl -o /etc/git/.gitconfig "https://raw.githubusercontent.com/Kirara17233/config/main/.gitconfig"
+ln -s /etc/git/.gitconfig /etc/skel/.gitconfig
+ln -s /etc/git/.gitconfig /root/.gitconfig
+
 mkdir /etc/ssh/.ssh
 mkdir /etc/skel/.ssh
 curl -o /etc/ssh/.ssh/id_rsa "https://raw.githubusercontent.com/Kirara17233/rsa/main/id_rsa?token=$token"
 ln -s /etc/ssh/.ssh/id_rsa /etc/skel/.ssh/id_rsa
-ln -s /etc/ssh/.ssh/id_rsa /home/$user/.ssh/id_rsa
 
 curl -o /etc/ssh/.ssh/authorized_keys "$gitrepo/.ssh/authorized_keys"
 ln -s /etc/ssh/.ssh/authorized_keys /etc/skel/.ssh/authorized_keys
