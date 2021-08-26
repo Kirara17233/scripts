@@ -31,7 +31,7 @@ rm -rf /home/$user/yay
 EOF
 
 # 下载vim-plug
-mkdir /etc/xdg/nvim/autoload
+mkdir /usr/share/nvim/autoload
 curl -fLo /usr/share/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 echo "
 call plug#begin('/usr/share/nvim/plugged')
