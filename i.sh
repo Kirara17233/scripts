@@ -45,10 +45,15 @@ do
 done
 curl -o /mnt/usr/lib/systemd/system/install.service "https://raw.githubusercontent.com/Kirara17233/script/main/install.service"
 chmod +x /mnt/step*.sh
+
+# 参数
 sed -i "s|#rootpw|$1|g" /mnt/step*.sh
 sed -i "s|#user|$2|g" /mnt/step*.sh
 sed -i "s|#userpw|$3|g" /mnt/step*.sh
-sed -i "s|#token|$4|g" /mnt/step*.sh
+sed -i "s|#model|$4|g" /mnt/step*.sh
+
+if [ $5 ]
+    sed -i "s|#token|$5|g" /mnt/step*.sh
 
 # 开启pacman色彩选项
 sed -i "s|#Color|Color|g" /mnt/etc/pacman.conf
