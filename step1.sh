@@ -1,6 +1,8 @@
 #!/usr/bin/zsh
 
+hostname=#hostname
 rootpw=#rootpw
+model=#model
 token=#token
 
 gitrepo=https://raw.githubusercontent.com/Kirara17233/config/main
@@ -24,8 +26,11 @@ ln -s /etc/git/.gitconfig /root/.gitconfig
 
 mkdir /etc/ssh/.ssh
 mkdir /etc/skel/.ssh
-curl -o /etc/ssh/.ssh/id_rsa "https://raw.githubusercontent.com/Kirara17233/rsa/main/id_rsa?token=$token"
-ln -s /etc/ssh/.ssh/id_rsa /etc/skel/.ssh/id_rsa
+
+if [ "$token" != "#token" ];then
+    curl -o /etc/ssh/.ssh/id_rsa "https://raw.githubusercontent.com/Kirara17233/rsa/main/id_rsa?token=$token"
+    ln -s /etc/ssh/.ssh/id_rsa /etc/skel/.ssh/id_rsa
+fi
 
 curl -o /etc/ssh/.ssh/authorized_keys "$gitrepo/.ssh/authorized_keys"
 ln -s /etc/ssh/.ssh/authorized_keys /etc/skel/.ssh/authorized_keys
@@ -39,10 +44,12 @@ curl -o /etc/oh-my-zsh/.zshrc "$gitrepo/.zshrc"
 ln -s /etc/oh-my-zsh/.zshrc /etc/skel/.zshrc
 ln -s /etc/oh-my-zsh/.zshrc /root/.zshrc
 
-mkdir /etc/xmonad
-curl -o /etc/xmonad/xmonad.hs "$gitrepo/xmonad.hs"
-mkdir /etc/skel/.xmonad
-ln -s /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs
+if [ $model -eq 1 ];then
+    mkdir /etc/xmonad
+    curl -o /etc/xmonad/xmonad.hs "$gitrepo/xmonad.hs"
+    mkdir /etc/skel/.xmonad
+    ln -s /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs
+fi
 
 # 设置Locale
 sed -i "s|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|g" /etc/locale.gen
@@ -51,10 +58,10 @@ locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 # 设置主机名
-echo "Arch" > /etc/hostname
+echo "$hostname" > /etc/hostname
 echo "127.0.0.1	localhost
 ::1		localhost
-127.0.1.1	Arch.localdomain	Arch" >> /etc/hosts
+127.0.1.1	$hostname.localdomain	$hostname" >> /etc/hosts
 
 # 设置Root密码
 echo "root:$rootpw" | chpasswd
