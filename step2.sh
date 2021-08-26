@@ -1,10 +1,12 @@
 #!/usr/bin/zsh
 
+swapsize=#swapsize
 user=#user
 userpw=#userpw
+model=#model
 
 # 创建交换文件
-dd if=/dev/zero of=/swapfile bs=1M count=8192 status=progress
+dd if=/dev/zero of=/swapfile bs=1M count=$swapsize status=progress
 chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile
@@ -13,8 +15,11 @@ sed -i "7i /swapfile                                       none            swap 
 # 新建用户
 useradd -m -G wheel $user
 echo "$user:$userpw" | chpasswd
-groupadd autologin
-gpasswd -a $user autologin
+
+if [ $model -eq 1 ];then
+    groupadd autologin
+    gpasswd -a $user autologin
+fi
 
 # 安装yay
 su $user <<EOF
@@ -45,21 +50,27 @@ set nu" >> /usr/share/nvim/archlinux.vim
 
 # 安装软件
 su $user <<EOF
-yay -S --noconfirm curl wget neofetch xf86-video-vmware xorg-server gtk3 lightdm numlockx xmonad xmonad-contrib rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc nix open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+yay -S --noconfirm curl wget neofetch
 EOF
 
-systemctl enable lightdm vmtoolsd vmware-vmblock-fuse
+if [ $model -eq 1 ];then
+    su $user <<EOF
+    yay -S --noconfirm xf86-video-vmware xorg-server gtk3 lightdm numlockx xmonad xmonad-contrib rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc nix open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+    EOF
 
-# 安装termonad
-git clone --depth=1 https://github.com/cdepillabout/termonad /root/termonad
-cd /root/termonad
-nix-build
-cp /root/termonad/result/bin/termonad /usr/bin/termonad
+    systemctl enable lightdm vmtoolsd vmware-vmblock-fuse
 
-# 启用自动登录
-sed -i "118i session-setup-script=/usr/bin/numlockx on" /etc/lightdm/lightdm.conf
-sed -i "s|#autologin-user=|autologin-user=$user|g" /etc/lightdm/lightdm.conf
-sed -i "s|#autologin-session=|autologin-session=xmonad|g" /etc/lightdm/lightdm.conf
+    # 安装termonad
+    git clone --depth=1 https://github.com/cdepillabout/termonad /root/termonad
+    cd /root/termonad
+    nix-build
+    cp /root/termonad/result/bin/termonad /usr/bin/termonad
+
+    # 启用自动登录
+    sed -i "118i session-setup-script=/usr/bin/numlockx on" /etc/lightdm/lightdm.conf
+    sed -i "s|#autologin-user=|autologin-user=$user|g" /etc/lightdm/lightdm.conf
+    sed -i "s|#autologin-session=|autologin-session=xmonad|g" /etc/lightdm/lightdm.conf
+fi
 
 # 解除
 systemctl disable install
