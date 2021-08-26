@@ -48,13 +48,14 @@ chmod +x /mnt/step*.sh
 
 # 参数
 sed -i "s|#hostname|$1|g" /mnt/step*.sh
-sed -i "s|#rootpw|$2|g" /mnt/step*.sh
-sed -i "s|#user|$3|g" /mnt/step*.sh
-sed -i "s|#userpw|$4|g" /mnt/step*.sh
-sed -i "s|#model|$5|g" /mnt/step*.sh
+sed -i "s|#swapsize|$2|g" /mnt/step*.sh
+sed -i "s|#rootpw|$3|g" /mnt/step*.sh
+sed -i "s|#user|$4|g" /mnt/step*.sh
+sed -i "s|#userpw|$5|g" /mnt/step*.sh
+sed -i "s|#model|$6|g" /mnt/step*.sh
 
 if [ $5 ];then
-    sed -i "s|#token|$6|g" /mnt/step*.sh
+    sed -i "s|#token|$7|g" /mnt/step*.sh
 fi
 
 # 开启pacman色彩选项
