@@ -52,8 +52,9 @@ sed -i "s|#user|$2|g" /mnt/step*.sh
 sed -i "s|#userpw|$3|g" /mnt/step*.sh
 sed -i "s|#model|$4|g" /mnt/step*.sh
 
-if [ $5 ]
+if [ $5 ];then
     sed -i "s|#token|$5|g" /mnt/step*.sh
+fi
 
 # 开启pacman色彩选项
 sed -i "s|#Color|Color|g" /mnt/etc/pacman.conf
