@@ -34,7 +34,7 @@ EOF
 mkdir /etc/xdg/nvim/autoload
 curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 echo "
-call plug#begin('/usr/share/nvim/plugged')
+call plug#begin('/etc/xdg/nvim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs'
