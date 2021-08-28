@@ -55,7 +55,7 @@ EOF
 
 if [ $model -eq 1 ];then
     su $user <<EOF
-    yay -S --noconfirm xf86-video-vmware xorg-server gtk3 lightdm numlockx xmonad xmonad-contrib xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc nix open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+    yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot gtk3 lightdm numlockx xmonad xmonad-contrib xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc nix open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
 EOF
 
     systemctl enable lightdm vmtoolsd vmware-vmblock-fuse
