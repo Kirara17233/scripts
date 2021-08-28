@@ -70,9 +70,6 @@ EOF
     sed -i "119i session-setup-script=xsetroot -cursor_name left_ptr" /etc/lightdm/lightdm.conf
     sed -i "s|#autologin-user=|autologin-user=$user|g" /etc/lightdm/lightdm.conf
     sed -i "s|#autologin-session=|autologin-session=xmonad|g" /etc/lightdm/lightdm.conf
-    amixer sset PCM -M 100% unmute
-    amixer sset Master -M 100% unmute
-    alsactl store
 fi
 
 # 解除
