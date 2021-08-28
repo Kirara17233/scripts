@@ -31,8 +31,7 @@ rm -rf /home/$user/yay
 EOF
 
 # 下载vim-plug
-mkdir /etc/xdg/nvim/autoload
-curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl --create-dirs -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 echo "
 call plug#begin('/etc/xdg/nvim/plugged')
 Plug 'vim-airline/vim-airline'
