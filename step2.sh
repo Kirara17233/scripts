@@ -66,8 +66,6 @@ EOF
     cp /root/termonad/result/bin/termonad /usr/bin/termonad
 
     # 启用自动登录
-    sed -i "118i session-setup-script=/usr/bin/numlockx on" /etc/lightdm/lightdm.conf
-    sed -i "119i session-setup-script=xsetroot -cursor_name left_ptr" /etc/lightdm/lightdm.conf
     sed -i "s|#autologin-user=|autologin-user=$user|g" /etc/lightdm/lightdm.conf
     sed -i "s|#autologin-session=|autologin-session=xmonad|g" /etc/lightdm/lightdm.conf
 fi
