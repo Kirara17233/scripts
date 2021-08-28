@@ -49,6 +49,7 @@ if [ $model -eq 1 ];then
     curl -o /etc/xmonad/xmonad.hs "$gitrepo/xmonad.hs"
     mkdir /etc/skel/.xmonad
     ln -s /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs
+    curl -o /var/lib/alsa/asound.state "$gitrepo/asound.state"
 fi
 
 # 设置Locale
