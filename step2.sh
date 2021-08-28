@@ -56,9 +56,6 @@ EOF
 if [ $model -eq 1 ];then
     su $user <<EOF
     yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot gtk3 alsa-utils lightdm numlockx xmonad xmonad-contrib xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc nix open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
-    amixer sset PCM -M 100% unmute
-    amixer sset Master -M 100% unmute
-    sudo alsactl store
 EOF
 
     systemctl enable lightdm vmtoolsd vmware-vmblock-fuse
@@ -74,6 +71,9 @@ EOF
     sed -i "119i session-setup-script=xsetroot -cursor_name left_ptr" /etc/lightdm/lightdm.conf
     sed -i "s|#autologin-user=|autologin-user=$user|g" /etc/lightdm/lightdm.conf
     sed -i "s|#autologin-session=|autologin-session=xmonad|g" /etc/lightdm/lightdm.conf
+    amixer sset PCM -M 100% unmute
+    amixer sset Master -M 100% unmute
+    alsactl store
 fi
 
 # 解除
