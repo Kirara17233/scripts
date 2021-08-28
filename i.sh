@@ -54,7 +54,7 @@ sed -i "s|#user|$4|g" /mnt/step*.sh
 sed -i "s|#userpw|$5|g" /mnt/step*.sh
 sed -i "s|#model|$6|g" /mnt/step*.sh
 
-if [ $5 ];then
+if [ $7 ];then
     sed -i "s|#token|$7|g" /mnt/step*.sh
 fi
 
