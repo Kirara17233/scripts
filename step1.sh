@@ -18,7 +18,8 @@ ln -s /usr/bin/nvim /usr/bin/vim
 sed -i "s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) NOPASSWD:ALL|g" /etc/sudoers
 
 # 配置
-curl --create-dirs -o /etc/git/.gitconfig "https://raw.githubusercontent.com/Kirara17233/config/main/.gitconfig"
+mkdir /etc/git
+curl -o /etc/git/.gitconfig "https://raw.githubusercontent.com/Kirara17233/config/main/.gitconfig"
 ln -s /etc/git/.gitconfig /etc/skel/.gitconfig
 ln -s /etc/git/.gitconfig /root/.gitconfig
 
@@ -44,8 +45,9 @@ if [ $model -eq 1 ];then
     mkdir /etc/xmonad
     curl -o /etc/xmonad/xmonad.hs "$gitrepo/xmonad.hs"
     mkdir /etc/skel/.xmonad
-    ln -s /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs
-    curl --create-dirs -o /var/lib/alsa/asound.state "$gitrepo/asound.state"
+    ln -s /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs\
+    mkdir /var/lib/alsa
+    curl -o /var/lib/alsa/asound.state "$gitrepo/asound.state"
 fi
 
 # 设置Locale
