@@ -28,7 +28,7 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 
 # 安装基本包
-pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git
+pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git curl wget neofetch
 
 # 配置shell
 rm /mnt/etc/skel/.bash*
