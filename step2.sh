@@ -31,7 +31,8 @@ rm -rf /home/$user/yay
 EOF
 
 # 下载vim-plug
-curl --create-dirs -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+mkdir /etc/xdg/nvim/autoload
+curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 echo "
 call plug#begin('/etc/xdg/nvim/plugged')
 Plug 'vim-airline/vim-airline'
@@ -48,13 +49,9 @@ let g:airline_theme='bubblegum'
 set nu" >> /usr/share/nvim/archlinux.vim
 
 # 安装软件
-su $user <<EOF
-yay -S --noconfirm curl wget neofetch
-EOF
-
 if [ $model -eq 1 ];then
     su $user <<EOF
-    yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot gtk3 alsa-utils lightdm numlockx xmonad xmonad-contrib xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc nix open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+    yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot gtk3 lightdm numlockx xmonad xmonad-contrib xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc nix open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
 EOF
 
     systemctl enable lightdm vmtoolsd vmware-vmblock-fuse
