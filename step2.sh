@@ -48,6 +48,10 @@ let g:airline_theme='bubblegum'
 \"let g:airline_theme='minimalist'
 set nu" >> /usr/share/nvim/archlinux.vim
 
+su $user <<EOF
+yay -S --noconfirm xxd-standalone
+EOF
+
 # 安装软件
 if [ $model -eq 1 ];then
     su $user <<EOF
