@@ -1,9 +1,13 @@
 #!/usr/bin/zsh
 
 run() {
-  echo "$1 2>> $2" | zsh
+  errpath="/mnt/err.info"
+  if [ $2 ]; then
+    errpath=$2
+  fi
+  echo "$1 2>> $errpath" | zsh
   if [ "$?" -ne 0 ]; then
-    run $1 $2
+    run $1 $errpath
   fi
 }
 
@@ -41,23 +45,23 @@ run "mount /dev/sda1 /mnt/boot" err.info
 run "cp err.info /mnt/err.info" err.info
 
 # Install basic packages
-run "pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git neofetch" /mnt/err.info
+run "pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git neofetch"
 
 # Change the default shell to zsh
-run "rm /mnt/etc/skel/.bash*" /mnt/err.info
-run "sed -i \"s|/bin/bash|/usr/bin/zsh|g\" /mnt/etc/default/useradd /mnt/etc/passwd" /mnt/err.info
+run "rm /mnt/etc/skel/.bash*"
+run "sed -i \"s|/bin/bash|/usr/bin/zsh|g\" /mnt/etc/default/useradd /mnt/etc/passwd"
 
 # Configure the system
-run "genfstab -U /mnt >> /mnt/etc/fstab" /mnt/err.info
+run "genfstab -U /mnt >> /mnt/etc/fstab"
 
 # Get chroot.sh
-run "curl -o /mnt/chroot.sh https://raw.githubusercontent.com/Kirara17233/script/main/chroot.sh" /mnt/err.info
-run "chmod +x /mnt/chroot.sh" /mnt/err.info
+run "curl -o /mnt/chroot.sh https://raw.githubusercontent.com/Kirara17233/script/main/chroot.sh"
+run "chmod +x /mnt/chroot.sh"
 
 # Chroot
-run "arch-chroot /mnt /step1.sh $1 $2 $3 $4 $5 $6" /mnt/err.info
+run "arch-chroot /mnt /step1.sh $1 $2 $3 $4 $5 $6"
 
 # 重启
-run "umount /mnt/boot" /mnt/err.info
-run "umount /mnt" /mnt/err.info
+run "umount /mnt/boot"
+run "umount /mnt"
 reboot
