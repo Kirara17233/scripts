@@ -3,7 +3,7 @@
 # 更新系统时间
 timedatectl set-ntp true
 
-# 分区与格式化
+# 分区 && 格式化
 
 echo "g
 n
@@ -17,8 +17,6 @@ n
 
 
 w" | fdisk /dev/sda
-
-# 格式化分区
 mkfs.fat -F32 /dev/sda1
 mkfs.ext4 /dev/sda2
 
@@ -28,7 +26,7 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 
 # 安装基本包
-pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git curl wget neofetch
+pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git wget neofetch
 
 # 配置shell
 rm /mnt/etc/skel/.bash*
@@ -38,13 +36,12 @@ sed -i "s|/bin/bash|/usr/bin/zsh|g" /mnt/etc/passwd
 # 配置Fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 
+# 开启pacman色彩选项
+sed -i "s|#Color|Color|g" /mnt/etc/pacman.conf
+
 # 下载后续脚本
-for loop in 1 2
-do
-    curl -o /mnt/step$loop.sh "https://raw.githubusercontent.com/Kirara17233/script/main/step$loop.sh"
-done
-curl -o /mnt/usr/lib/systemd/system/install.service "https://raw.githubusercontent.com/Kirara17233/script/main/install.service"
-chmod +x /mnt/step*.sh
+curl -o /mnt/step$loop.sh "https://raw.githubusercontent.com/Kirara17233/script/main/chroot.sh"
+chmod +x /mnt/chroot.sh
 
 # 参数
 sed -i "s|#hostname|$1|g" /mnt/step*.sh
@@ -53,9 +50,6 @@ sed -i "s|#rootpw|$3|g" /mnt/step*.sh
 sed -i "s|#user|$4|g" /mnt/step*.sh
 sed -i "s|#userpw|$5|g" /mnt/step*.sh
 sed -i "s|#model|$6|g" /mnt/step*.sh
-
-# 开启pacman色彩选项
-sed -i "s|#Color|Color|g" /mnt/etc/pacman.conf
 
 # Chroot
 arch-chroot /mnt /step1.sh
