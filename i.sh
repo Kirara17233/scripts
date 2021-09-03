@@ -1,7 +1,9 @@
 #!/usr/bin/zsh
 
+e="err.info"
+
 run() {
-  errpath="/mnt/err.info"
+  errpath="/mnt/$e"
   if [ $2 ]; then
     errpath=$2
   fi
@@ -11,10 +13,10 @@ run() {
   fi
 }
 
-rm err.info
+rm $e
 
 # Update the system clock
-run "timedatectl set-ntp true" err.info
+run "timedatectl set-ntp true" $e
 
 # Partition the disks
 run "sed -e \"s| *#.*||g\" << EOF | fdisk /dev/sda
@@ -30,19 +32,19 @@ n     # add a new partition
       # default starting sector
       # ending sector(all the remaining space)
 w     # write table to disk and exit
-EOF" err.info
+EOF" $e
 
 # Format the partitions
-run "mkfs.fat -F32 /dev/sda1" err.info
-run "mkfs.ext4 /dev/sda2" err.info
+run "mkfs.fat -F32 /dev/sda1" $e
+run "mkfs.ext4 /dev/sda2" $e
 
 # Mount the file systems
-run "mount /dev/sda2 /mnt" err.info
-run "mkdir /mnt/boot" err.info
-run "mount /dev/sda1 /mnt/boot" err.info
+run "mount /dev/sda2 /mnt" $e
+run "mkdir /mnt/boot" $e
+run "mount /dev/sda1 /mnt/boot" $e
 
-# save err.info
-run "cp err.info /mnt/err.info" err.info
+# save $e
+run "cp $e /mnt/$e" $e
 
 # Install basic packages
 run "pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git neofetch"
