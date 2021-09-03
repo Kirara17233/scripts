@@ -1,11 +1,14 @@
 #!/usr/bin/zsh
 
 run() {
-  `$1` 2>> $2
+  echo "$1 2>> $2" > cmd
+  zsh cmd
   if [ "$?" -ne 0 ]; then
     run $1 $2
   fi
 }
+
+rm err.info
 
 # Update the system clock
 run "timedatectl set-ntp true" err.info
