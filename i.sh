@@ -42,7 +42,7 @@ run "mount /dev/sda1 /mnt/boot" err.info
 run "cp err.info /mnt/err.info" err.info
 
 # Install basic packages
-run "pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git wget neofetch" /mnt/err.info
+run "pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git neofetch" /mnt/err.info
 
 # Change the default shell to zsh
 run "rm /mnt/etc/skel/.bash*" /mnt/err.info
