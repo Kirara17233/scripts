@@ -51,16 +51,10 @@ set nu" >> /usr/share/nvim/archlinux.vim
 # 安装软件
 if [ $model -eq 1 ];then
     su $user <<EOF
-    yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot breeze-gtk xwallpaper gtk3 picom alsa-utils lightdm numlockx xmonad xmonad-contrib xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc nix open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+    yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot breeze-gtk xwallpaper gtk3 picom alsa-utils lightdm numlockx xmonad xmonad-contrib xmobar rofi ttf-meslo-nerd-font-powerlevel10k alacritty ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
 EOF
 
     systemctl enable lightdm vmtoolsd vmware-vmblock-fuse
-
-    # 安装termonad
-    git clone --depth=1 https://github.com/cdepillabout/termonad /root/termonad
-    cd /root/termonad
-    nix-build
-    cp /root/termonad/result/bin/termonad /usr/bin/termonad
 
     # 启用自动登录
     sed -i "s|#autologin-user=|autologin-user=$user|g" /etc/lightdm/lightdm.conf
