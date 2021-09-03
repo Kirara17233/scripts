@@ -1,8 +1,7 @@
 #!/usr/bin/zsh
 
 run() {
-  echo "$1 2>> $2" > cmd
-  zsh cmd
+  echo "$1 2>> $2" | zsh
   if [ "$?" -ne 0 ]; then
     run $1 $2
   fi
