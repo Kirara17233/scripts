@@ -1,10 +1,17 @@
 #!/usr/bin/zsh
 
+run() {
+  `$1` 2>> $2
+  if [ "$?" -ne 0 ]; then
+    run $1 $2
+  fi
+}
+
 # Update the system clock
-timedatectl set-ntp true
+run "timedatectl set-ntp true" err.info
 
 # Partition the disks
-sed -e "s| *#.*||g" << EOF | fdisk /dev/sda
+run "sed -e \"s| *#.*||g\" << EOF | fdisk /dev/sda
 g     # create a new empty GPT(GUID) partition table
 n     # add a new partition as EFI system
       # default partition number: 1
@@ -17,38 +24,38 @@ n     # add a new partition
       # default starting sector
       # ending sector(all the remaining space)
 w     # write table to disk and exit
-EOF
+EOF" err.info
 
 # Format the partitions
-mkfs.fat -F32 /dev/sda1
-mkfs.ext4 /dev/sda2
+run "mkfs.fat -F32 /dev/sda1" err.info
+run "mkfs.ext4 /dev/sda2" err.info
 
 # Mount the file systems
-mount /dev/sda2 /mnt
-mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
+run "mount /dev/sda2 /mnt" err.info
+run "mkdir /mnt/boot" err.info
+run "mount /dev/sda1 /mnt/boot" err.info
+
+# save err.info
+run "cp err.info /mnt/err.info" err.info
 
 # Install basic packages
-pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git wget neofetch
+run "pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git wget neofetch" /mnt/err.info
 
 # Change the default shell to zsh
-rm /mnt/etc/skel/.bash*
-sed -i "s|/bin/bash|/usr/bin/zsh|g" /mnt/etc/default/useradd /mnt/etc/passwd
+run "rm /mnt/etc/skel/.bash*" /mnt/err.info
+run "sed -i \"s|/bin/bash|/usr/bin/zsh|g\" /mnt/etc/default/useradd /mnt/etc/passwd" /mnt/err.info
 
 # Configure the system
-genfstab -U /mnt >> /mnt/etc/fstab
+run "genfstab -U /mnt >> /mnt/etc/fstab" /mnt/err.info
 
-# Open pacman's color option
-sed -i "s|#Color|Color|g" /mnt/etc/pacman.conf
-
-# Get 
-curl -o /mnt/step$loop.sh "https://raw.githubusercontent.com/Kirara17233/script/main/chroot.sh"
-chmod +x /mnt/chroot.sh
+# Get chroot.sh
+run "curl -o /mnt/chroot.sh https://raw.githubusercontent.com/Kirara17233/script/main/chroot.sh" /mnt/err.info
+run "chmod +x /mnt/chroot.sh" /mnt/err.info
 
 # Chroot
-arch-chroot /mnt /step1.sh $1 $2 $3 $4 $5 $6
+run "arch-chroot /mnt /step1.sh $1 $2 $3 $4 $5 $6" /mnt/err.info
 
 # 重启
-umount /mnt/boot
-umount /mnt
+run "umount /mnt/boot" /mnt/err.info
+run "umount /mnt" /mnt/err.info
 reboot
