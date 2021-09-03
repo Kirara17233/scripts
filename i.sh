@@ -1,58 +1,52 @@
 #!/usr/bin/zsh
 
-# 更新系统时间
+# Update the system clock
 timedatectl set-ntp true
 
-# 分区 && 格式化
+# Partition the disks
+sed -e "s| *#.*||g" << EOF | fdisk /dev/sda
+g     # create a new empty GPT(GUID) partition table
+n     # add a new partition as EFI system
+      # default partition number: 1
+      # default starting sector
++512M # +512M as ending sector
+t     # change the partition type
+1     # EFI System
+n     # add a new partition
+      # default partition number: 2
+      # default starting sector
+      # ending sector(all the remaining space)
+w     # write table to disk and exit
+EOF
 
-echo "g
-n
-
-
-+512M
-t
-1
-n
-
-
-
-w" | fdisk /dev/sda
+# Format the partitions
 mkfs.fat -F32 /dev/sda1
 mkfs.ext4 /dev/sda2
 
-# 挂载分区
+# Mount the file systems
 mount /dev/sda2 /mnt
 mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 
-# 安装基本包
+# Install basic packages
 pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git wget neofetch
 
-# 配置shell
+# Change the default shell to zsh
 rm /mnt/etc/skel/.bash*
-sed -i "s|/bin/bash|/usr/bin/zsh|g" /mnt/etc/default/useradd
-sed -i "s|/bin/bash|/usr/bin/zsh|g" /mnt/etc/passwd
+sed -i "s|/bin/bash|/usr/bin/zsh|g" /mnt/etc/default/useradd /mnt/etc/passwd
 
-# 配置Fstab
+# Configure the system
 genfstab -U /mnt >> /mnt/etc/fstab
 
-# 开启pacman色彩选项
+# Open pacman's color option
 sed -i "s|#Color|Color|g" /mnt/etc/pacman.conf
 
-# 下载后续脚本
+# Get 
 curl -o /mnt/step$loop.sh "https://raw.githubusercontent.com/Kirara17233/script/main/chroot.sh"
 chmod +x /mnt/chroot.sh
 
-# 参数
-sed -i "s|#hostname|$1|g" /mnt/step*.sh
-sed -i "s|#swapsize|$2|g" /mnt/step*.sh
-sed -i "s|#rootpw|$3|g" /mnt/step*.sh
-sed -i "s|#user|$4|g" /mnt/step*.sh
-sed -i "s|#userpw|$5|g" /mnt/step*.sh
-sed -i "s|#model|$6|g" /mnt/step*.sh
-
 # Chroot
-arch-chroot /mnt /step1.sh
+arch-chroot /mnt /step1.sh $1 $2 $3 $4 $5 $6
 
 # 重启
 umount /mnt/boot
