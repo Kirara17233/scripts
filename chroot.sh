@@ -35,7 +35,7 @@ run "sed -i \"s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) NOPASSWD:ALL|g\" /etc/su
 # Git configuration
 run "git clone https://github.com/Kirara17233/config /root/config"
 run "mkdir /etc/git"
-run "cp /root/config/.gitconfig /etc/git"
+run "cp -r /root/config/.gitconfig /etc/git"
 run "ln -sf /etc/git/.gitconfig /etc/skel/.gitconfig"
 run "ln -sf /etc/git/.gitconfig /root/.gitconfig"
 
@@ -57,23 +57,20 @@ run "ln -sf /etc/oh-my-zsh/.zshrc /root/.zshrc"
 
 run "# Xmonad and sound system configuration"
 if [ $model -eq 1 ];then
-  run "mkdir /etc/xmonad"
-  run "cp /root/config/xmonad.hs /etc/xmonad"
+  run "cp -r /root/config/xmonad /etc"
   run "mkdir /etc/skel/.xmonad"
   run "ln -sf /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs"
   run "cp -r /root/config/colors /etc"
   run "ln -sf /etc/colors/MaterialOcean /etc/colors/main"
   
-  run "mkdir /etc/rofi"
   run "cp /root/config/.config/gtk-3.0/settings.ini /etc/gtk-3.0"
-  run "cp /root/config/.config/rofi/config.rasi /etc/rofi"
+  run "cp -r /root/config/.config/rofi /etc"
   run "mkdir /etc/skel/.config"
   run "mkdir /etc/skel/.config/gtk-3.0"
   run "mkdir /etc/skel/.config/rofi"
   run "ln -sf /etc/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
   run "ln -sf /etc/rofi/config.rasi /etc/skel/.config/rofi/config.rasi"
-#  run "mkdir /var/lib/alsa"
-#  run "cp /root/config/asound.state /var/lib/alsa"
+#  run "cp -r /root/config /var/lib"
 fi
 
 # Localization
