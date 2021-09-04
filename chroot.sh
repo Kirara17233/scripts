@@ -78,7 +78,7 @@ run "echo \"127.0.0.1	localhost
 127.0.1.1	$hostname.localdomain	$hostname\" >> /etc/hosts"
 
 # Reset root password
-run "echo \"root:$rootpw\" | chpasswd"
+run "echo root:$rootpw | chpasswd"
 
 # Boot loader
 run "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub"
@@ -89,7 +89,7 @@ run "dd if=/dev/zero of=/swapfile bs=1M count=$swapsize status=progress"
 run "chmod 600 /swapfile"
 run "mkswap /swapfile"
 run "swapon /swapfile"
-run "sed -i \"7i /swapfile                                       none            swap            defaults        0 0\" /etc/fstab"
+run "sed -i \"7i /swapfile					none		swap		defaults	0 0\" /etc/fstab"
 
 # Add a new user
 run "useradd -m -G wheel $user"
