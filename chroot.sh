@@ -34,8 +34,7 @@ run "sed -i \"s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) NOPASSWD:ALL|g\" /etc/su
 
 # Git configuration
 run "git clone https://github.com/Kirara17233/config /root/config"
-run "mkdir /etc/git"
-run "cp -r /root/config/.gitconfig /etc/git"
+run "cp -r /root/config/git /etc"
 run "ln -sf /etc/git/.gitconfig /etc/skel/.gitconfig"
 run "ln -sf /etc/git/.gitconfig /root/.gitconfig"
 
