@@ -62,12 +62,9 @@ if [ $model -eq 1 ];then
   run "cp -r /root/config/colors /etc"
   run "ln -sf /etc/colors/MaterialOcean /etc/colors/main"
   
-  run "cp /root/config/.config/gtk-3.0/settings.ini /etc/gtk-3.0"
   run "cp -r /root/config/.config/rofi /etc"
   run "mkdir /etc/skel/.config"
-  run "mkdir /etc/skel/.config/gtk-3.0"
   run "mkdir /etc/skel/.config/rofi"
-  run "ln -sf /etc/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
   run "ln -sf /etc/rofi/config.rasi /etc/skel/.config/rofi/config.rasi"
 #  run "cp -r /root/config /var/lib"
 fi
@@ -127,6 +124,10 @@ if [ $model -eq 1 ];then
   su $user <<EOF
   yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot xwallpaper gtk3 xxd-standalone gobject-introspection vala-panel-appmenu-xfce picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel xmobar alacritty rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
 EOF
+
+  run "cp /root/config/.config/gtk-3.0/settings.ini /etc/gtk-3.0"
+  run "mkdir /etc/skel/.config/gtk-3.0"
+  run "ln -sf /etc/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
 
   run "systemctl enable lightdm vmtoolsd vmware-vmblock-fuse"
 
