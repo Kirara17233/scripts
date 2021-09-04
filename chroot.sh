@@ -95,11 +95,6 @@ run "sed -i \"7i /swapfile					none		swap		defaults	0 0\" /etc/fstab"
 run "useradd -m -G wheel $user"
 run "echo \"$user:$userpw\" | chpasswd"
 
-if [ $model -eq 1 ];then
-  run "groupadd autologin"
-  run "gpasswd -a $user autologin"
-fi
-
 # Install yay
 run "su $user << EOF
 git clone --depth=1 https://aur.archlinux.org/yay.git /home/$user/yay
@@ -115,8 +110,13 @@ run "mkdir /etc/xdg/nvim/autoload"
 run "curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 run "cp /root/config/archlinux.vim /usr/share/nvim/archlinux.vim"
 
+# Enable dhcpcd and ssh
+run "systemctl enable dhcpcd sshd"
+
 # Install GUI packages
 if [ $model -eq 1 ];then
+  run "groupadd autologin"
+  run "gpasswd -a $user autologin"
   run "su $user <<EOF
   yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot breeze-gtk xwallpaper gtk3 picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel vala-panel-appmenu-xfce xmobar rofi ttf-meslo-nerd-font-powerlevel10k alacritty ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
   EOF
@@ -128,9 +128,6 @@ if [ $model -eq 1 ];then
   run "sed -i \"s|#autologin-user=|autologin-user=$user|g\" /etc/lightdm/lightdm.conf"
   run "sed -i \"s|#autologin-session=|autologin-session=xmonad|g\" /etc/lightdm/lightdm.conf"
 fi
-
-# Enable dhcpcd and ssh
-run "systemctl enable dhcpcd sshd"
 
 # 清理文件
 run "rm /chroot.sh"
