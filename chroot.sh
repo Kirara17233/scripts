@@ -65,8 +65,13 @@ if [ $model -eq 1 ];then
   run "ln -sf /etc/colors/MaterialOcean /etc/colors/main"
   
   run "mkdir /etc/rofi"
+  run "cp /root/config/.config/gtk-3.0/settings.ini /etc/gtk-3.0"
   run "cp /root/config/.config/rofi/config.rasi /etc/rofi"
-  
+  run "mkdir /etc/skel/.config"
+  run "mkdir /etc/skel/.config/gtk-3.0"
+  run "mkdir /etc/skel/.config/rofi"
+  run "ln -sf /etc/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
+  run "ln -sf /etc/rofi/config.rasi /etc/skel/.config/rofi/config.rasi"
 #  run "mkdir /var/lib/alsa"
 #  run "cp /root/config/asound.state /var/lib/alsa"
 fi
