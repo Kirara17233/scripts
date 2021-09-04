@@ -8,9 +8,13 @@ userpw=$5
 model=$6
 
 run() {
-  echo "$1 2>> /err.info" | zsh
+  errpath=/err.info
+  if [ $2 ]; then
+    errpath=$2
+  fi
+  echo "$1 2>> $errpath" | zsh
   if [ "$?" -ne 0 ]; then
-    run $1 /err.info
+    run $1 $errpath
   fi
 }
 
@@ -103,7 +107,7 @@ cd /home/$user/yay
 makepkg -rsi --noconfirm
 cd ~
 rm -rf /home/$user/yay
-EOF"
+EOF" /home/$user/err.info
 
 # Neovim configuration
 run "mkdir /etc/xdg/nvim/autoload"
@@ -114,7 +118,7 @@ run "cp /root/config/archlinux.vim /usr/share/nvim/archlinux.vim"
 if [ $model -eq 1 ];then
   run "su $user <<EOF
   yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot breeze-gtk xwallpaper gtk3 picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel vala-panel-appmenu-xfce xmobar rofi ttf-meslo-nerd-font-powerlevel10k alacritty ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
-  EOF"
+  EOF" /home/$user/err.info
 
   run "systemctl enable lightdm vmtoolsd vmware-vmblock-fuse"
 
