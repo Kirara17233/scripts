@@ -61,6 +61,8 @@ if [ $model -eq 1 ];then
   run "cp /root/config/xmonad.hs /etc/xmonad/xmonad.hs"
   run "mkdir /etc/skel/.xmonad"
   run "ln -sf /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs"
+  run "cp -r /root/config/colors /etc"
+  run "ln -sf /etc/colors/MaterialOcean /etc/colors/main"
   run "mkdir /var/lib/alsa"
   run "cp /root/config/asound.state /var/lib/alsa/asound.state"
 fi
