@@ -63,8 +63,8 @@ if [ $model -eq 1 ];then
   run "ln -sf /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs"
   run "cp -r /root/config/colors /etc"
   run "ln -sf /etc/colors/MaterialOcean /etc/colors/main"
-  run "mkdir /var/lib/alsa"
-  run "cp /root/config/asound.state /var/lib/alsa/asound.state"
+#  run "mkdir /var/lib/alsa"
+#  run "cp /root/config/asound.state /var/lib/alsa/asound.state"
 fi
 
 # Localization
