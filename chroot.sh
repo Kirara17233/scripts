@@ -19,11 +19,11 @@ run "ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime"
 run "hwclock --systohc"
 
 # Open pacman's color option
-run "sed -i \"s|#Color|Color|g\" /mnt/etc/pacman.conf"
+run "sed -i \"s|#Color|Color|g\" /etc/pacman.conf"
 
 # Link vi and vim to neovim
-run "ln -s /usr/bin/nvim /usr/bin/vi"
-run "ln -s /usr/bin/nvim /usr/bin/vim"
+run "ln -sf /usr/bin/nvim /usr/bin/vi"
+run "ln -sf /usr/bin/nvim /usr/bin/vim"
 
 # Change sudo
 run "sed -i \"s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) NOPASSWD:ALL|g\" /etc/sudoers"
@@ -32,14 +32,14 @@ run "sed -i \"s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) NOPASSWD:ALL|g\" /etc/su
 run "git clone https://github.com/Kirara17233/config /root/config"
 run "mkdir /etc/git"
 run "cp /root/config/.gitconfig /etc/git/.gitconfig"
-run "ln -s /etc/git/.gitconfig /etc/skel/.gitconfig"
-run "ln -s /etc/git/.gitconfig /root/.gitconfig"
+run "ln -sf /etc/git/.gitconfig /etc/skel/.gitconfig"
+run "ln -sf /etc/git/.gitconfig /root/.gitconfig"
 
 # SSH configuration
 run "cp -r /root/config/.ssh /etc/ssh/.ssh"
 run "mkdir /etc/skel/.ssh"
-run "ln -s /etc/ssh/.ssh/authorized_keys /etc/skel/.ssh/authorized_keys"
-run "ln -s /etc/ssh/.ssh/id_rsa /etc/skel/.ssh/id_rsa"
+run "ln -sf /etc/ssh/.ssh/authorized_keys /etc/skel/.ssh/authorized_keys"
+run "ln -sf /etc/ssh/.ssh/id_rsa /etc/skel/.ssh/id_rsa"
 
 # Zsh configuration
 run "git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git /etc/oh-my-zsh"
@@ -48,15 +48,15 @@ run "git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.gi
 run "git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git /etc/oh-my-zsh/custom/plugins/zsh-autosuggestions"
 run "cp /root/config/.p10k.zsh /etc/oh-my-zsh/.p10k.zsh"
 run "cp /root/config/.zshrc /etc/oh-my-zsh/.zshrc"
-run "ln -s /etc/oh-my-zsh/.zshrc /etc/skel/.zshrc"
-run "ln -s /etc/oh-my-zsh/.zshrc /root/.zshrc"
+run "ln -sf /etc/oh-my-zsh/.zshrc /etc/skel/.zshrc"
+run "ln -sf /etc/oh-my-zsh/.zshrc /root/.zshrc"
 
 run "# Xmonad and sound system configuration"
 if [ $model -eq 1 ];then
   run "mkdir /etc/xmonad"
   run "cp /root/config/xmonad.hs /etc/xmonad/xmonad.hs"
   run "mkdir /etc/skel/.xmonad"
-  run "ln -s /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs"
+  run "ln -sf /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs"
   run "mkdir /var/lib/alsa"
   run "cp /root/config/asound.state /var/lib/alsa/asound.state"
 fi
