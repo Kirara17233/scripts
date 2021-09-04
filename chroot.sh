@@ -121,8 +121,14 @@ if [ $model -eq 1 ];then
   run "groupadd autologin"
   run "gpasswd -a $user autologin"
   su $user <<EOF
-  yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot xwallpaper gtk3 xxd-standalone gobject-introspection vala-panel-appmenu-xfce picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel xmobar alacritty rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
-EOF
+  yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot xwallpaper gtk3 xxd-standalone gobject-introspection vala-panel-appmenu-xfce picom alsa-utils lightdm numlockx xmonad xmonad-contrib nix xfce4-panel xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+  EOF
+
+  # 安装termonad
+  run "git clone --depth=1 https://github.com/cdepillabout/termonad /etc/termonad"
+  run "cd /etc/termonad"
+  run "nix-build"
+  run "cp /etc/termonad/result/bin/termonad /usr/bin/termonad"
 
   run "cp /root/config/.config/gtk-3.0/settings.ini /etc/gtk-3.0"
   run "mkdir /etc/skel/.config/gtk-3.0"
