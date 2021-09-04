@@ -118,7 +118,7 @@ if [ $model -eq 1 ];then
   run "groupadd autologin"
   run "gpasswd -a $user autologin"
   su $user <<EOF
-  yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot breeze-gtk xwallpaper gtk3 picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel vala-panel-appmenu-xfce xmobar rofi ttf-meslo-nerd-font-powerlevel10k alacritty ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+  yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot breeze-gtk xwallpaper gtk3 xxd-standalone picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel vala-panel-appmenu-xfce xmobar rofi ttf-meslo-nerd-font-powerlevel10k alacritty ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
 EOF
 
   run "systemctl enable lightdm vmtoolsd vmware-vmblock-fuse"
