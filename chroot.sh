@@ -101,13 +101,13 @@ if [ $model -eq 1 ];then
 fi
 
 # Install yay
-run "su $user << EOF
+su $user << EOF
 git clone --depth=1 https://aur.archlinux.org/yay.git /home/$user/yay
 cd /home/$user/yay
 makepkg -rsi --noconfirm
 cd ~
 rm -rf /home/$user/yay
-EOF" /home/$user/err.info
+EOF
 
 # Neovim configuration
 run "mkdir /etc/xdg/nvim/autoload"
