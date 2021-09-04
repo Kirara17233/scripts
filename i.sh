@@ -43,7 +43,7 @@ run "mount /dev/sda2 /mnt" $e
 run "mkdir /mnt/boot" $e
 run "mount /dev/sda1 /mnt/boot" $e
 
-# save $e
+# Save err.info
 run "cp $e /mnt/$e" $e
 
 # Install basic packages
@@ -53,7 +53,7 @@ run "pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim su
 run "rm /mnt/etc/skel/.bash*"
 run "sed -i \"s|/bin/bash|/usr/bin/zsh|g\" /mnt/etc/default/useradd /mnt/etc/passwd"
 
-# Configure the system
+# Generate an fstab file
 run "genfstab -U /mnt >> /mnt/etc/fstab"
 
 # Get chroot.sh
@@ -63,7 +63,7 @@ run "chmod +x /mnt/chroot.sh"
 # Chroot
 run "arch-chroot /mnt /step1.sh $1 $2 $3 $4 $5 $6"
 
-# 重启
+# Reboot
 run "umount /mnt/boot"
 run "umount /mnt"
 reboot
