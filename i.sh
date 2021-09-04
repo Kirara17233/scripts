@@ -47,7 +47,7 @@ run "mount /dev/sda1 /mnt/boot" $e
 run "cp $e /mnt/$e" $e
 
 # Install basic packages
-run "pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git neofetch"
+run "pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh neovim sudo zsh git neofetch intel-ucode grub efibootmgr"
 
 # Change the default shell to zsh
 run "rm /mnt/etc/skel/.bash*"
