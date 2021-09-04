@@ -101,13 +101,12 @@ if [ $model -eq 1 ];then
 fi
 
 # Install yay
-su $user << EOF
+run "su $user << EOF
 git clone --depth=1 https://aur.archlinux.org/yay.git /home/$user/yay
 cd /home/$user/yay
 makepkg -rsi --noconfirm
 cd ~
-rm -rf /home/$user/yay
-EOF
+rm -rf /home/$user/yay"
 
 # Neovim configuration
 run "mkdir /etc/xdg/nvim/autoload"
@@ -116,9 +115,8 @@ run "cp /root/config/archlinux.vim /usr/share/nvim/archlinux.vim"
 
 # Install GUI packages
 if [ $model -eq 1 ];then
-  su $user <<EOF
-  yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot breeze-gtk xwallpaper gtk3 picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel vala-panel-appmenu-xfce xmobar rofi ttf-meslo-nerd-font-powerlevel10k alacritty ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
-  EOF
+  run "su $user <<EOF
+  yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot breeze-gtk xwallpaper gtk3 picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel vala-panel-appmenu-xfce xmobar rofi ttf-meslo-nerd-font-powerlevel10k alacritty ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome"
 
   run "systemctl enable lightdm vmtoolsd vmware-vmblock-fuse"
 
