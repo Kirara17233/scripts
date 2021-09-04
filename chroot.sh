@@ -61,12 +61,11 @@ if [ $model -eq 1 ];then
   run "ln -sf /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs"
   run "cp -r /root/config/colors /etc"
   run "ln -sf /etc/colors/MaterialOcean /etc/colors/main"
-  
   run "cp -r /root/config/.config/rofi /etc"
   run "mkdir /etc/skel/.config"
   run "mkdir /etc/skel/.config/rofi"
   run "ln -sf /etc/rofi/config.rasi /etc/skel/.config/rofi/config.rasi"
-#  run "cp -r /root/config /var/lib"
+  run "cp -r /root/config/alsa /var/lib"
 fi
 
 # Localization
