@@ -1,4 +1,0 @@
-#!/usr/bin/zsh
-
-sudo ln -sf /etc/colors/$1 /etc/colors/main
-sed ":a;\$\!{N;ba};s/# Colors.*\n# Bell/`echo "asdasdasdsadsdsdsd"`\n# Bell/" config/alacritty/alacritty.yml

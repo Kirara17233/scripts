@@ -1,3 +1,0 @@
-#!/usr/bin/zsh
-
-sudo ln -sf /usr/share/wallpapers/$1.jpg /usr/share/wallpapers/main
