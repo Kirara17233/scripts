@@ -65,5 +65,4 @@ arch-chroot /mnt /chroot.sh $1 $2 $3 $4 $5 $6
 
 # Reboot
 run "umount /mnt/boot"
-run "umount /mnt"
 reboot
