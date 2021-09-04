@@ -115,12 +115,12 @@ run "cp /root/config/archlinux.vim /usr/share/nvim/archlinux.vim"
 # Enable dhcpcd and ssh
 run "systemctl enable dhcpcd sshd"
 
-# Install GUI packages !vala-panel-appmenu-xfce
+# Install GUI packages
 if [ $model -eq 1 ];then
   run "groupadd autologin"
   run "gpasswd -a $user autologin"
   su $user <<EOF
-  yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot xwallpaper gtk3 xxd-standalone picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel xmobar alacritty rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+  yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot xwallpaper gtk3 xxd-standalone gobject-introspection vala-panel-appmenu-xfce picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel xmobar alacritty rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
 EOF
 
   run "systemctl enable lightdm vmtoolsd vmware-vmblock-fuse"
