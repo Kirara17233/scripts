@@ -61,7 +61,7 @@ run "curl -o /mnt/chroot.sh https://raw.githubusercontent.com/Kirara17233/script
 run "chmod +x /mnt/chroot.sh"
 
 # Chroot
-run "arch-chroot /mnt /step1.sh $1 $2 $3 $4 $5 $6"
+run "arch-chroot /mnt /chroot.sh $1 $2 $3 $4 $5 $6"
 
 # Reboot
 run "umount /mnt/boot"
