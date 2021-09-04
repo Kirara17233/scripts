@@ -35,12 +35,12 @@ run "sed -i \"s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) NOPASSWD:ALL|g\" /etc/su
 # Git configuration
 run "git clone https://github.com/Kirara17233/config /root/config"
 run "mkdir /etc/git"
-run "cp /root/config/.gitconfig /etc/git/.gitconfig"
+run "cp /root/config/.gitconfig /etc/git"
 run "ln -sf /etc/git/.gitconfig /etc/skel/.gitconfig"
 run "ln -sf /etc/git/.gitconfig /root/.gitconfig"
 
 # SSH configuration
-run "cp -r /root/config/.ssh /etc/ssh/.ssh"
+run "cp -r /root/config/.ssh /etc/ssh"
 run "mkdir /etc/skel/.ssh"
 run "ln -sf /etc/ssh/.ssh/authorized_keys /etc/skel/.ssh/authorized_keys"
 run "ln -sf /etc/ssh/.ssh/id_rsa /etc/skel/.ssh/id_rsa"
@@ -50,21 +50,25 @@ run "git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git /etc/oh-my-zsh"
 run "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /etc/oh-my-zsh/custom/themes/powerlevel10k"
 run "git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git /etc/oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 run "git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git /etc/oh-my-zsh/custom/plugins/zsh-autosuggestions"
-run "cp /root/config/.p10k.zsh /etc/oh-my-zsh/.p10k.zsh"
-run "cp /root/config/.zshrc /etc/oh-my-zsh/.zshrc"
+run "cp /root/config/.p10k.zsh /etc/oh-my-zsh"
+run "cp /root/config/.zshrc /etc/oh-my-zsh"
 run "ln -sf /etc/oh-my-zsh/.zshrc /etc/skel/.zshrc"
 run "ln -sf /etc/oh-my-zsh/.zshrc /root/.zshrc"
 
 run "# Xmonad and sound system configuration"
 if [ $model -eq 1 ];then
   run "mkdir /etc/xmonad"
-  run "cp /root/config/xmonad.hs /etc/xmonad/xmonad.hs"
+  run "cp /root/config/xmonad.hs /etc/xmonad"
   run "mkdir /etc/skel/.xmonad"
   run "ln -sf /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs"
   run "cp -r /root/config/colors /etc"
   run "ln -sf /etc/colors/MaterialOcean /etc/colors/main"
+  
+  run "mkdir /etc/rofi"
+  run "cp /root/config/.config/rofi/config.rasi /etc/rofi"
+  
 #  run "mkdir /var/lib/alsa"
-#  run "cp /root/config/asound.state /var/lib/alsa/asound.state"
+#  run "cp /root/config/asound.state /var/lib/alsa"
 fi
 
 # Localization
@@ -110,7 +114,7 @@ EOF
 # Neovim configuration
 run "mkdir /etc/xdg/nvim/autoload"
 run "curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-run "cp /root/config/archlinux.vim /usr/share/nvim/archlinux.vim"
+run "cp /root/config/archlinux.vim /usr/share/nvim"
 
 # Enable dhcpcd and ssh
 run "systemctl enable dhcpcd sshd"
