@@ -128,6 +128,9 @@ EOF
   run "mkdir /etc/skel/.config/gtk-3.0"
   run "ln -sf /etc/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
 
+  run "xfconf-query -c xsettings -p /Gtk/ShellShowsMenubar -n -t bool -s true"
+  run "xfconf-query -c xsettings -p /Gtk/ShellShowsAppmenu -n -t bool -s true"
+
   run "systemctl enable lightdm vmtoolsd vmware-vmblock-fuse"
 
   # Open autologin
