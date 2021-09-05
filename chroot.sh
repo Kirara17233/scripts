@@ -59,10 +59,10 @@ if [ $model -eq 1 ];then
   run "ln -sf /etc/config/.config/rofi/config.rasi /etc/skel/.config/rofi/config.rasi"
   run "mkdir /var/lib/alsa"
   run "ln -sf /etc/config/asound.state /var/lib/alsa/asound.state"
-  run "mkdir /etc/skel/.config/termonad"
   run "mkdir /etc/skel/.config/gtk-3.0"
-  run "ln -sf /etc/config/.config/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs"
+  run "mkdir /etc/skel/.config/termonad"
   run "ln -sf /etc/config/.config/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
+  run "ln -sf /etc/config/.config/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs"
 fi
 
 # Localization
