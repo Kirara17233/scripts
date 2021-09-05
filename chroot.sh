@@ -141,9 +141,6 @@ if [ $model -eq 1 ];then
 EOF
 " /home/$user/err.info
 
-  run "xfconf-query -c xsettings -p /Gtk/ShellShowsMenubar -n -t bool -s true"
-  run "xfconf-query -c xsettings -p /Gtk/ShellShowsAppmenu -n -t bool -s true"
-
   run "systemctl enable lightdm vmtoolsd vmware-vmblock-fuse"
 
   # Open autologin
