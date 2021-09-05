@@ -96,7 +96,7 @@ run "sed -i \"7i /swapfile					none		swap		defaults	0 0\" /etc/fstab"
 
 # Install GUI packages
 if [ $model -eq 1 ];then
-  run "pacman -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot gtk3 nix"
+  run "pacman -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot gtk3"
 
   # 安装termonad
   run "git clone --depth=1 https://github.com/cdepillabout/termonad /etc/termonad"
@@ -137,7 +137,11 @@ if [ $model -eq 1 ];then
   run "groupadd autologin"
   run "gpasswd -a $user autologin"
   run "su $user << EOF
-  yay -S --noconfirm xwallpaper xxd-standalone gobject-introspection vala-panel-appmenu-xfce picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+  yay -S --noconfirm xwallpaper xxd-standalone nix gobject-introspection vala-panel-appmenu-xfce picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+  cd /etc/termonad
+  sudo nix-build
+  xfconf-query -c xsettings -p /Gtk/ShellShowsMenubar -n -t bool -s true
+  xfconf-query -c xsettings -p /Gtk/ShellShowsAppmenu -n -t bool -s true
 EOF
 " /home/$user/err.info
 
