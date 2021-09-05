@@ -30,6 +30,7 @@ run "sed -i \"s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) NOPASSWD:ALL|g\" /etc/su
 
 # Git configuration
 run "git clone https://github.com/Kirara17233/config /etc/config"
+run "git --git-dir=/etc/config/.git --work-tree=/etc/config remote set-url origin git@github.com:Kirara17233/config"
 run "ln -sf /etc/config/.gitconfig /etc/skel/.gitconfig"
 run "ln -sf /etc/config/.gitconfig /root/.gitconfig"
 
