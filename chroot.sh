@@ -94,6 +94,32 @@ run "mkswap /swapfile"
 run "swapon /swapfile"
 run "sed -i \"7i /swapfile					none		swap		defaults	0 0\" /etc/fstab"
 
+# Install GUI packages
+if [ $model -eq 1 ];then
+  pacman -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot gtk3 nix
+
+  # 安装termonad
+  run "git clone --depth=1 https://github.com/cdepillabout/termonad /etc/termonad"
+  run "cd /etc/termonad"
+  run "nix-build"
+  run "cp /etc/termonad/result/bin/termonad /usr/bin/termonad"
+  run "cp /root/config/.config/termonad/termonad.hs /etc/termonad"
+  run "mkdir /etc/skel/.config/termonad"
+  run "ln -sf /etc/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs"
+
+  run "cp /root/config/.config/gtk-3.0/settings.ini /etc/gtk-3.0"
+  run "mkdir /etc/skel/.config/gtk-3.0"
+  run "ln -sf /etc/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
+fi
+
+# Neovim configuration
+run "mkdir /etc/xdg/nvim/autoload"
+run "curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+run "cp /root/config/archlinux.vim /usr/share/nvim"
+
+# Enable dhcpcd and ssh
+run "systemctl enable dhcpcd sshd"
+
 # Add a new user
 run "useradd -m -G wheel $user"
 run "echo \"$user:$userpw\" | chpasswd"
@@ -108,31 +134,13 @@ rm -rf /home/$user/yay
 EOF
 " /home/$user/err.info
 
-# Neovim configuration
-run "mkdir /etc/xdg/nvim/autoload"
-run "curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-run "cp /root/config/archlinux.vim /usr/share/nvim"
-
-# Enable dhcpcd and ssh
-run "systemctl enable dhcpcd sshd"
-
 # Install GUI packages
 if [ $model -eq 1 ];then
   run "groupadd autologin"
   run "gpasswd -a $user autologin"
   su $user <<EOF
-  yay -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot xwallpaper gtk3 xxd-standalone gobject-introspection vala-panel-appmenu-xfce picom alsa-utils lightdm numlockx xmonad xmonad-contrib nix xfce4-panel xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+  yay -S --noconfirm xwallpaper xxd-standalone gobject-introspection vala-panel-appmenu-xfce picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
   EOF
-
-  # 安装termonad
-  run "git clone --depth=1 https://github.com/cdepillabout/termonad /etc/termonad"
-  run "cd /etc/termonad"
-  run "nix-build"
-  run "cp /etc/termonad/result/bin/termonad /usr/bin/termonad"
-
-  run "cp /root/config/.config/gtk-3.0/settings.ini /etc/gtk-3.0"
-  run "mkdir /etc/skel/.config/gtk-3.0"
-  run "ln -sf /etc/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
 
   run "xfconf-query -c xsettings -p /Gtk/ShellShowsMenubar -n -t bool -s true"
   run "xfconf-query -c xsettings -p /Gtk/ShellShowsAppmenu -n -t bool -s true"
