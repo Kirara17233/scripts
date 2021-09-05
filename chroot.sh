@@ -110,6 +110,7 @@ fi
 run "mkdir /etc/xdg/nvim/autoload"
 run "curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 run "cp /root/config/archlinux.vim /usr/share/nvim"
+run "cp /root/config/picom.conf /etc/xdg"
 
 # Enable dhcpcd and ssh
 run "systemctl enable dhcpcd sshd"
