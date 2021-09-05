@@ -50,6 +50,8 @@ run "ln -sf /etc/config/.zshrc /root/.zshrc"
 
 # Xmonad and sound system configuration
 if [ $model -eq 1 ];then
+  run "rm -rf /usr/local/bin"
+  run "ln -sf /etc/config/bin /usr/local"
   run "mkdir /etc/skel/.xmonad"
   run "ln -sf /etc/config/xmonad.hs /etc/skel/.xmonad/xmonad.hs"
   run "mkdir /etc/skel/.config"
