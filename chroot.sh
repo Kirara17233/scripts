@@ -29,7 +29,7 @@ run "ln -sf /usr/bin/nvim /usr/bin/vim"
 run "sed -i \"s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) NOPASSWD:ALL|g\" /etc/sudoers"
 
 # Git configuration
-run "git clone git@github.com:Kirara17233/config /etc/config"
+run "git clone https://github.com/Kirara17233/config /etc/config"
 run "ln -sf /etc/config/.gitconfig /etc/skel/.gitconfig"
 run "ln -sf /etc/config/.gitconfig /root/.gitconfig"
 
