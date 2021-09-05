@@ -141,7 +141,7 @@ if [ $model -eq 1 ];then
   run "gpasswd -a $user autologin"
   su $user <<EOF
   yay -S --noconfirm xwallpaper xxd-standalone gobject-introspection vala-panel-appmenu-xfce picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
-  EOF
+EOF
 
   run "xfconf-query -c xsettings -p /Gtk/ShellShowsMenubar -n -t bool -s true"
   run "xfconf-query -c xsettings -p /Gtk/ShellShowsAppmenu -n -t bool -s true"
