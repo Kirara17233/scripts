@@ -4,7 +4,7 @@ e="err.info"
 
 run() {
   echo $1 | zsh
-  if [ "$?" -ne 0 ]; then
+  if [ $? -ne 0 ]; then
     run $1
   fi
 }
