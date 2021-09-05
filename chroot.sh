@@ -29,39 +29,37 @@ run "ln -sf /usr/bin/nvim /usr/bin/vim"
 run "sed -i \"s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) NOPASSWD:ALL|g\" /etc/sudoers"
 
 # Git configuration
-run "git clone https://github.com/Kirara17233/config /root/config"
-run "cp -r /root/config/git /etc"
-run "ln -sf /etc/git/.gitconfig /etc/skel/.gitconfig"
-run "ln -sf /etc/git/.gitconfig /root/.gitconfig"
+run "git clone git@github.com:Kirara17233/config /etc/config"
+run "ln -sf /etc/config/.gitconfig /etc/skel/.gitconfig"
+run "ln -sf /etc/config/.gitconfig /root/.gitconfig"
 
 # SSH configuration
-run "cp -r /root/config/.ssh /etc/ssh"
 run "mkdir /etc/skel/.ssh"
-run "ln -sf /etc/ssh/.ssh/authorized_keys /etc/skel/.ssh/authorized_keys"
-run "ln -sf /etc/ssh/.ssh/id_rsa /etc/skel/.ssh/id_rsa"
+run "ln -sf /etc/config/authorized_keys /etc/skel/.ssh/authorized_keys"
+run "touch /etc/ssh/id_rsa"
+run "ln -sf /etc/ssh/id_rsa /etc/skel/.ssh/id_rsa"
 
 # Zsh configuration
 run "git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git /etc/oh-my-zsh"
 run "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /etc/oh-my-zsh/custom/themes/powerlevel10k"
 run "git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git /etc/oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 run "git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git /etc/oh-my-zsh/custom/plugins/zsh-autosuggestions"
-run "cp /root/config/.p10k.zsh /etc/oh-my-zsh"
-run "cp /root/config/.zshrc /etc/oh-my-zsh"
-run "ln -sf /etc/oh-my-zsh/.zshrc /etc/skel/.zshrc"
-run "ln -sf /etc/oh-my-zsh/.zshrc /root/.zshrc"
+run "ln -sf /etc/config/.zshrc /etc/skel/.zshrc"
+run "ln -sf /etc/config/.zshrc /root/.zshrc"
 
-run "# Xmonad and sound system configuration"
+# Xmonad and sound system configuration
 if [ $model -eq 1 ];then
-  run "cp -r /root/config/xmonad /etc"
   run "mkdir /etc/skel/.xmonad"
-  run "ln -sf /etc/xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs"
-  run "cp -r /root/config/colors /etc"
-  run "ln -sf /etc/colors/MaterialOcean /etc/colors/main"
-  run "cp -r /root/config/.config/rofi /etc"
+  run "ln -sf /etc/config/xmonad.hs /etc/skel/.xmonad/xmonad.hs"
+  run "ln -sf /root/config/colors /etc/colors"
   run "mkdir /etc/skel/.config"
   run "mkdir /etc/skel/.config/rofi"
-  run "ln -sf /etc/rofi/config.rasi /etc/skel/.config/rofi/config.rasi"
-  run "cp -r /root/config/alsa /var/lib"
+  run "ln -sf /etc/config/.config/rofi/config.rasi /etc/skel/.config/rofi/config.rasi"
+  run "mkdir /var/lib/alsa"
+  run "ln -sf /root/config/asound.state /var/lib/alsa/asound.state"
+  run "mkdir /etc/skel/.config/termonad"
+  run "ln -sf /etc/config/.config/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs"
+  run "ln -sf /etc/config/.config/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
 fi
 
 # Localization
@@ -90,27 +88,11 @@ run "mkswap /swapfile"
 run "swapon /swapfile"
 run "sed -i \"7i /swapfile					none		swap		defaults	0 0\" /etc/fstab"
 
-# Install GUI packages
-if [ $model -eq 1 ];then
-  run "pacman -S --noconfirm xf86-video-vmware xorg-server xorg-xsetroot gtk3"
-
-  # 安装termonad
-  run "git clone --depth=1 https://github.com/cdepillabout/termonad /etc/termonad"
-  run "cd /etc/termonad"
-  run "cp /root/config/.config/termonad/termonad.hs /etc/termonad"
-  run "mkdir /etc/skel/.config/termonad"
-  run "ln -sf /etc/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs"
-
-  run "cp /root/config/.config/gtk-3.0/settings.ini /etc/gtk-3.0"
-  run "mkdir /etc/skel/.config/gtk-3.0"
-  run "ln -sf /etc/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
-fi
-
 # Neovim configuration
 run "mkdir /etc/xdg/nvim/autoload"
 run "curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-run "cp /root/config/archlinux.vim /usr/share/nvim"
-run "cp /root/config/picom.conf /etc/xdg"
+run "ln -sf /etc/config/archlinux.vim /usr/share/nvim/archlinux.vim"
+run "ln -sf /etc/config/picom.conf /etc/xdg/picom.conf"
 
 # Enable dhcpcd and ssh
 run "systemctl enable dhcpcd sshd"
@@ -134,9 +116,12 @@ if [ $model -eq 1 ];then
   run "groupadd autologin"
   run "gpasswd -a $user autologin"
   run "su $user << EOF
-  yay -S --noconfirm xwallpaper xxd-standalone nix gobject-introspection vala-panel-appmenu-xfce picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+  yay -S --noconfirm xf86-video-vmware open-vm-tools alsa-utils numlockx gobject-introspection nix\
+      xorg-server xorg-xsetroot xwallpaper gtk3 lightdm xmonad xmonad-contrib xmobar xfce4-panel vala-panel-appmenu-xfce picom rofi\
+      xxd-standalone ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
 EOF
 "
+  run "git clone --depth=1 https://github.com/cdepillabout/termonad /etc/termonad"
 
   run "systemctl enable lightdm vmtoolsd vmware-vmblock-fuse"
 
