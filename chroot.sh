@@ -155,6 +155,3 @@ fi
 
 # 清理文件
 run "rm /chroot.sh"
-
-# 退出chroot
-# exit
