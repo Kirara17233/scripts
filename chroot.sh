@@ -148,5 +148,8 @@ EOF
   run "sed -i \"s|#autologin-session=|autologin-session=xmonad|g\" /etc/lightdm/lightdm.conf"
 fi
 
+run "curl -o /ending.sh https://raw.githubusercontent.com/Kirara17233/script/main/ending.sh"
+run "chmod +x /ending.sh"
+
 # 清理文件
 run "rm /chroot.sh"
