@@ -8,13 +8,9 @@ userpw=$5
 model=$6
 
 run() {
-  errpath=/err.info
-  if [ $2 ]; then
-    errpath=$2
-  fi
-  echo "$1 2>> $errpath" | zsh
-  if [ "$?" -ne 0 ]; then
-    run $1 $errpath
+  echo $1 | zsh
+  if [ $? -ne 0 ]; then
+    run $1
   fi
 }
 
@@ -130,7 +126,7 @@ makepkg -rsi --noconfirm
 cd ~
 rm -rf /home/$user/yay
 EOF
-" /home/$user/err.info
+"
 
 # Install GUI packages
 if [ $model -eq 1 ];then
@@ -139,7 +135,7 @@ if [ $model -eq 1 ];then
   run "su $user << EOF
   yay -S --noconfirm xwallpaper xxd-standalone nix gobject-introspection vala-panel-appmenu-xfce picom alsa-utils lightdm numlockx xmonad xmonad-contrib xfce4-panel xmobar rofi ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc open-vm-tools jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
 EOF
-" /home/$user/err.info
+"
 
   run "systemctl enable lightdm vmtoolsd vmware-vmblock-fuse"
 
