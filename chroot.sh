@@ -13,6 +13,7 @@ run() {
     errpath=$2
   fi
   echo "$1 2>> $errpath" | zsh
+  echo $1 >> /cmd
   if [ "$?" -ne 0 ]; then
     run $1 $errpath
   fi
