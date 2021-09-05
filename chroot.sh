@@ -102,7 +102,7 @@ if [ $model -eq 1 ];then
   # 安装termonad
   run "git clone --depth=1 https://github.com/cdepillabout/termonad /etc/termonad"
   run "cd /etc/termonad"
-  run "nix-build"
+  nix-build
   run "cp /etc/termonad/result/bin/termonad /usr/bin/termonad"
   run "cp /root/config/.config/termonad/termonad.hs /etc/termonad"
   run "mkdir /etc/skel/.config/termonad"
