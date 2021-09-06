@@ -121,7 +121,7 @@ if [ $model -eq 1 ];then
   run "su $user << EOF
   yay -S --noconfirm xf86-video-vmware open-vm-tools alsa-utils numlockx gobject-introspection nix\
       xorg-server xorg-xsetroot xwallpaper gtk3 lightdm xmonad xmonad-contrib picom xmobar xfce4-panel vala-panel-appmenu-registrar vala-panel-appmenu-xfce rofi\
-      xxd-standalone ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
+      xxd-standalone ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome bash-pipes
 EOF
 "
   run "git clone --depth=1 https://github.com/cdepillabout/termonad /etc/termonad"
