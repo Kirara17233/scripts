@@ -36,6 +36,7 @@ run "ln -sf /etc/config/.gitconfig /root/.gitconfig"
 
 # SSH configuration
 run "mkdir /etc/skel/.ssh"
+run "mkdir /root/.ssh"
 run "ln -sf /etc/config/authorized_keys /etc/skel/.ssh/authorized_keys"
 run "touch /etc/ssh/id_rsa"
 run "ln -sf /etc/ssh/id_rsa /etc/skel/.ssh/id_rsa"
@@ -137,5 +138,5 @@ fi
 run "curl -o /ending.sh https://raw.githubusercontent.com/Kirara17233/script/main/ending.sh"
 run "chmod +x /ending.sh"
 
-# 清理文件
+# Cleanup script
 run "rm /chroot.sh"
