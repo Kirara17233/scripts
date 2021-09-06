@@ -1,6 +1,11 @@
 #!/usr/bin/zsh
 
-e="err.info"
+hostname=$1
+swapsize=$2
+rootpw=$3
+user=$4
+userpw=$5
+model=$6
 
 run() {
   echo $1 | zsh
@@ -52,7 +57,7 @@ run "curl -o /mnt/chroot.sh https://raw.githubusercontent.com/Kirara17233/script
 run "chmod +x /mnt/chroot.sh"
 
 # Chroot
-arch-chroot /mnt /chroot.sh $1 $2 $3 $4 $5 $6
+arch-chroot /mnt /chroot.sh $hostname $swapsize $rootpw $user $userpw $model
 
 # Reboot
 run "umount /mnt/boot"
