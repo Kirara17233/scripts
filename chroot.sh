@@ -39,6 +39,7 @@ run "mkdir /etc/skel/.ssh"
 run "ln -sf /etc/config/authorized_keys /etc/skel/.ssh/authorized_keys"
 run "touch /etc/ssh/id_rsa"
 run "ln -sf /etc/ssh/id_rsa /etc/skel/.ssh/id_rsa"
+run "ln -sf /etc/ssh/id_rsa /root/.ssh/id_rsa"
 
 # Zsh configuration
 run "git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git /etc/oh-my-zsh"
