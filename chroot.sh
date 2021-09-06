@@ -62,8 +62,12 @@ if [ $model -eq 1 ];then
   run "mkdir /var/lib/alsa"
   run "ln -sf /etc/config/asound.state /var/lib/alsa/asound.state"
   run "mkdir /etc/skel/.config/gtk-3.0"
+  run "mkdir /etc/skel/.config/xfce4"
+  run "mkdir /etc/skel/.config/xfce4/xfconf"
+  run "mkdir /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml"
   run "mkdir /etc/skel/.config/termonad"
   run "ln -sf /etc/config/.config/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
+  run "ln -sf /etc/config/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
   run "ln -sf /etc/config/.config/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs"
 fi
 
