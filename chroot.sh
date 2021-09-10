@@ -113,9 +113,7 @@ run "echo \"$user:$userpw\" | chpasswd"
 # Install yay
 run "su $user << EOF
 git clone --depth=1 https://aur.archlinux.org/yay.git /home/$user/yay
-cd /home/$user/yay
-makepkg -rsi --noconfirm
-cd ~
+(cd /home/$user/yay && makepkg -rsi --noconfirm)
 rm -rf /home/$user/yay
 EOF
 "
