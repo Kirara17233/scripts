@@ -1,6 +1,5 @@
 #!/usr/bin/zsh
 
-cd /etc/termonad
-sudo nix-build
+sudo nix-build /etc/termonad
 sudo cp /etc/termonad/result/bin/termonad /usr/bin
 sudo rm /ending.sh
