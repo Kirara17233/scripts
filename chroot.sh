@@ -24,6 +24,7 @@ run "sed -i \"s|#Color|Color|g\" /etc/pacman.conf"
 # Link vi and vim to neovim
 run "ln -sf /usr/bin/nvim /usr/bin/vi"
 run "ln -sf /usr/bin/nvim /usr/bin/vim"
+run "ln -sf /usr/bin/emacs /usr/bin/Emacs"
 
 # Change sudo
 run "sed -i \"s|# %wheel ALL=(ALL) ALL|%wheel ALL=(ALL) NOPASSWD:ALL|g\" /etc/sudoers"
