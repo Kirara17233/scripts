@@ -128,7 +128,7 @@ if [ $model -eq 1 ];then
   run "gpasswd -a $user autologin"
   run "su $user << EOF
   yay -S --noconfirm xf86-video-vmware open-vm-tools alsa-utils numlockx gobject-introspection nix\
-      xorg-server xorg-xsetroot xwallpaper wmctrl xorg-xrandr gtk3 appmenu-gtk-module lightdm xmonad xmonad-contrib picom xmobar xfce4-panel vala-panel-appmenu-registrar vala-panel-appmenu-xfce rofi\
+      xorg-server xorg-xsetroot xwallpaper wmctrl xorg-xrandr gtk3 appmenu-gtk-module lightdm xmonad xmonad-contrib picom-git xmobar xfce4-panel vala-panel-appmenu-registrar vala-panel-appmenu-xfce rofi\
       gnome-keyring ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono noto-fonts-sc noto-fonts-emoji jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome bash-pipes cmatrix
   mkdir ~/Desktop
 EOF
