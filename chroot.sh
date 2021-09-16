@@ -102,7 +102,7 @@ run "chmod 600 /swapfile"
 run "mkswap /swapfile"
 run "swapon /swapfile"
 run "sed -i \"7i /swapfile					none		swap		defaults	0 0\" /etc/fstab"
-run "sed -i \"8i /dev/sdb1				/home/$user/Desktop		ext4		defaults	0 0\" /etc/fstab"
+run "sed -i \"8i /dev/sdb1			/home/$user/Desktop		ext4		defaults	0 0\" /etc/fstab"
 
 # Neovim configuration
 run "mkdir /etc/xdg/nvim/autoload"
