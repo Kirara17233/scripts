@@ -75,6 +75,7 @@ if [ $model -eq 1 ];then
   run "ln -sf /etc/config/.config/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
   run "ln -sf /etc/config/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
   run "ln -sf /etc/config/.config/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs"
+  run "ln -sf /etc/config/picom.conf /etc/xdg/picom.conf"
 fi
 
 # Localization
@@ -108,7 +109,6 @@ run "sed -i \"8i /dev/sdb1			/home/$user/Desktop		ext4		defaults	0 0\" /etc/fsta
 run "mkdir /etc/xdg/nvim/autoload"
 run "curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 run "ln -sf /etc/config/archlinux.vim /usr/share/nvim/archlinux.vim"
-run "ln -sf /etc/config/picom.conf /etc/xdg/picom.conf"
 
 # Enable dhcpcd and ssh
 run "systemctl enable dhcpcd sshd"
