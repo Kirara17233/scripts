@@ -27,7 +27,7 @@ run "ln -sf /usr/bin/nvim /usr/bin/vim"
 run "ln -sf /usr/bin/emacs /usr/bin/Emacs"
 
 # Change sudo
-run "sed -i \"s|# %wheel ALL=(ALL:ALL) NOPASSWD:ALL|%wheel ALL=(ALL:ALL) NOPASSWD:ALL|g\" /etc/sudoers"
+run "sed -i \"s|# %wheel ALL=(ALL:ALL) NOPASSWD: ALL|%wheel ALL=(ALL:ALL) NOPASSWD: ALL|g\" /etc/sudoers"
 
 # Git configuration
 run "git clone https://github.com/Kirara17233/config /etc/config"
