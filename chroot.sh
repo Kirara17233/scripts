@@ -138,7 +138,7 @@ if [ $model -eq 1 ];then
   mkdir ~/Desktop
 EOF
 "
-  run "sudo chgrp -R wheel /opt/visual-studio-code"
+  run "sudo chown -R $user /opt/visual-studio-code"
   run "git clone --depth=1 https://github.com/cdepillabout/termonad /etc/termonad"
 
   run "systemctl enable lightdm vmtoolsd vmware-vmblock-fuse"
