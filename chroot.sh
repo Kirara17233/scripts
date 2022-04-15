@@ -19,7 +19,7 @@ run "ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime"
 run "hwclock --systohc"
 
 # Open pacman's color option
-run "sed -i \"s|#Color|Color|g\" /etc/pacman.conf"
+run "sed -i 's|#Color|Color|g' /etc/pacman.conf"
 
 # Link vi and vim to neovim
 run "ln -sf /usr/bin/nvim /usr/bin/vi"
@@ -27,7 +27,7 @@ run "ln -sf /usr/bin/nvim /usr/bin/vim"
 run "ln -sf /usr/bin/emacs /usr/bin/Emacs"
 
 # Change sudo
-run "sed -i \"s|# %wheel ALL=(ALL:ALL) NOPASSWD: ALL|%wheel ALL=(ALL:ALL) NOPASSWD: ALL|g\" /etc/sudoers"
+run "sed -i 's|# %wheel ALL=(ALL:ALL) NOPASSWD: ALL|%wheel ALL=(ALL:ALL) NOPASSWD: ALL|g' /etc/sudoers"
 
 # Git configuration
 run "git clone https://github.com/Kirara17233/config /etc/config"
@@ -61,7 +61,7 @@ if [ $model -eq 1 ];then
   run "mkdir /etc/skel/.config/rofi"
   run "mkdir /etc/skel/.config/xmobar"
   run "mkdir /etc/skel/.config/bpytop"
-  run "ln -sf /etc/config/.config/rofi/config.rasi /etc/skel/.config/rofi/config.rasi"
+  run "echo '@theme \"/usr/share/rofi/themes/DarkBlue.rasi\"' > /etc/skel/.config/rofi/config.rasi"
   run "ln -sf /etc/config/.config/xmobar/xmobar.hs /etc/skel/.config/xmobar/xmobar.hs"
   run "ln -sf /etc/config/.config/bpytop/bpytop.conf /etc/skel/.config/bpytop/bpytop.conf"
   run "ln -sf /etc/config/.config/bpytop/themes /etc/skel/.config/bpytop/themes"
@@ -72,7 +72,8 @@ if [ $model -eq 1 ];then
   run "mkdir /etc/skel/.config/xfce4/xfconf"
   run "mkdir /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml"
   run "mkdir /etc/skel/.config/termonad"
-  run "ln -sf /etc/config/.config/gtk-3.0/settings.ini /etc/skel/.config/gtk-3.0/settings.ini"
+  run "echo '[Settings]
+gtk-application-prefer-dark-theme=true' > /etc/skel/.config/gtk-3.0/settings.ini"
   run "ln -sf /etc/config/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
   run "ln -sf /etc/config/.config/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs"
   run "ln -sf /etc/config/picom.conf /etc/xdg/picom.conf"
