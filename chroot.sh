@@ -37,7 +37,7 @@ run "ln -sf /etc/config/.gitconfig /root/.gitconfig"
 
 # SSH configuration
 run "mkdir /etc/skel/.ssh"
-run "mkdir /root/.ssh"
+#run "mkdir /root/.ssh"
 run "ln -sf /etc/config/.ssh/authorized_keys /etc/skel/.ssh/authorized_keys"
 run "touch /etc/ssh/id_rsa"
 run "ln -sf /etc/ssh/id_rsa /etc/skel/.ssh/id_rsa"
