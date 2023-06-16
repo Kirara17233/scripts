@@ -14,16 +14,13 @@ run() {
   fi
 }
 
-# Update the system clock
-run "timedatectl set-ntp true"
-
 # Partition the disks
 run "sed -e \"s| *#.*||g\" << EOF | fdisk /dev/sda
 g     # create a new empty GPT(GUID) partition table
 n     # add a new partition as EFI system
       # default partition number: 1
       # default starting sector
-+512M # +512M as ending sector
++256M # +256M as ending sector
 t     # change the partition type
 1     # EFI System
 n     # add a new partition
