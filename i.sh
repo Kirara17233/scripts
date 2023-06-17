@@ -36,8 +36,7 @@ run "mkfs.ext4 /dev/sda2"
 
 # Mount the file systems
 run "mount /dev/sda2 /mnt"
-run "mkdir /mnt/boot"
-run "mount /dev/sda1 /mnt/boot"
+run "mount --mkdir /dev/sda1 /mnt/boot"
 
 # Install basic packages
 run "pacstrap /mnt base base-devel linux linux-firmware dhcpcd openssh gdb neovim emacs sudo zsh git neofetch intel-ucode grub efibootmgr docker"
