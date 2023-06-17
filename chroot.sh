@@ -134,7 +134,7 @@ if [ $model -eq 1 ];then
   yay -S --noconfirm budgie-desktop
   yay -Rsn budgie-desktop
   yay -S --noconfirm xf86-video-vmware open-vm-tools alsa-utils numlockx gobject-introspection nix\
-      xorg-server xorg-xsetroot xwallpaper wmctrl xorg-xrandr gtk3 appmenu-gtk-module lightdm xmonad xmonad-contrib picom-ibhagwan-git xmobar xfce4-panel vala-panel-appmenu-xfce vala-panel-appmenu-registrar rofi\
+      xorg-server xorg-xsetroot xwallpaper wmctrl xorg-xrandr gtk3 appmenu-gtk-module lightdm xmonad xmonad-contrib picom xmobar xfce4-panel vala-panel-appmenu-xfce vala-panel-appmenu-registrar rofi\
       bpytop gnome-keyring ttf-meslo-nerd-font-powerlevel10k ttf-jetbrains-mono ttf-font-awesome ttf-nerd-fonts-symbols noto-fonts noto-fonts-sc noto-fonts-emoji jdk-openjdk jetbrains-toolbox visual-studio-code-bin google-chrome
   mkdir ~/Desktop
 EOF
