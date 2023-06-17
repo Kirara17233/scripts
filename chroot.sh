@@ -99,7 +99,7 @@ run "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 run "grub-mkconfig -o /boot/grub/grub.cfg"
 
 # Create a swapfile
-run "dd if=/dev/zero of=/swapfile bs=1G count=$swapsize status=progress"
+run "dd if=/dev/zero of=/swapfile bs=1G count=0 seek=$swapsize status=progress"
 run "chmod 600 /swapfile"
 run "mkswap /swapfile"
 run "swapon /swapfile"
