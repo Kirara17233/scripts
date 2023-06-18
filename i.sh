@@ -44,7 +44,7 @@ sed -i "s|/bin/bash|/usr/bin/zsh|g" /mnt/etc/default/useradd /mnt/etc/passwd
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Get chroot.sh
-curl -o /mnt/chroot.sh https://raw.githubusercontent.com/Kirara17233/script/main/chroot.sh
+curl -o /mnt/chroot.sh https://raw.githubusercontent.com/Kirara17233/scripts/main/chroot.sh
 chmod +x /mnt/chroot.sh
 
 # Chroot
