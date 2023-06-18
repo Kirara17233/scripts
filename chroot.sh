@@ -19,8 +19,8 @@ run "ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime"
 run "hwclock --systohc"
 
 # Open pacman's option
-run "sed -i 's|#Color|Color|g' /etc/pacman.conf"
-run "sed -i 's|#ParallelDownloads|ParallelDownloads|g' /etc/pacman.conf"
+run "sed -i \"s|#Color|Color|g\" /etc/pacman.conf"
+run "sed -i \"s|#ParallelDownloads|ParallelDownloads|g\" /etc/pacman.conf"
 
 # Link vi and vim to neovim
 run "ln -sf /usr/bin/nvim /usr/bin/vi"
@@ -28,7 +28,7 @@ run "ln -sf /usr/bin/nvim /usr/bin/vim"
 run "ln -sf /usr/bin/emacs /usr/bin/Emacs"
 
 # Change sudo
-run "sed -i 's|# %wheel ALL=(ALL:ALL) NOPASSWD: ALL|%wheel ALL=(ALL:ALL) NOPASSWD: ALL|g' /etc/sudoers"
+run "sed -i \"s|# %wheel ALL=(ALL:ALL) NOPASSWD: ALL|%wheel ALL=(ALL:ALL) NOPASSWD: ALL|g\" /etc/sudoers"
 
 # Git configuration
 run "git clone https://github.com/Kirara17233/config /etc/config"
@@ -73,16 +73,16 @@ if [ $model -eq 1 ];then
   run "mkdir /etc/skel/.config/xfce4/xfconf"
   run "mkdir /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml"
   run "mkdir /etc/skel/.config/termonad"
-  run "echo '[Settings]
-gtk-application-prefer-dark-theme=true' > /etc/skel/.config/gtk-3.0/settings.ini"
+  run "echo \"[Settings]
+gtk-application-prefer-dark-theme=true\" > /etc/skel/.config/gtk-3.0/settings.ini"
   run "ln -sf /etc/config/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
   run "ln -sf /etc/config/.config/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs"
   run "ln -sf /etc/config/picom.conf /etc/xdg/picom.conf"
 fi
 
 # Localization
-run "sed -i 's|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|g' /etc/locale.gen"
-run "sed -i 's|#zh_CN.UTF-8 UTF-8|zh_CN.UTF-8 UTF-8|g' /etc/locale.gen"
+run "sed -i \"s|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|g\" /etc/locale.gen"
+run "sed -i \"s|#zh_CN.UTF-8 UTF-8|zh_CN.UTF-8 UTF-8|g\" /etc/locale.gen"
 run "locale-gen"
 run "echo LANG=en_US.UTF-8 > /etc/locale.conf"
 
@@ -104,7 +104,7 @@ run "dd if=/dev/zero of=/swapfile bs=1G count=$swapsize status=progress"
 run "chmod 600 /swapfile"
 run "mkswap /swapfile"
 run "swapon /swapfile"
-run "sed -i '7i /swapfile					none		swap		defaults	0 0' /etc/fstab"
+run "sed -i \"7i /swapfile					none		swap		defaults	0 0\" /etc/fstab"
 run "sed -i \"8i /dev/sdb1			/home/$user/Desktop		ext4		defaults	0 0\" /etc/fstab"
 
 # Neovim configuration
@@ -147,7 +147,7 @@ EOF
 
   # Open autologin
   run "sed -i \"s|#autologin-user=|autologin-user=$user|g\" /etc/lightdm/lightdm.conf"
-  run "sed -i 's|#autologin-session=|autologin-session=xmonad|g' /etc/lightdm/lightdm.conf"
+  run "sed -i \"s|#autologin-session=|autologin-session=xmonad|g\" /etc/lightdm/lightdm.conf"
 fi
 
 # Cleanup script
