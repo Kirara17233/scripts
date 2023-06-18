@@ -24,15 +24,15 @@ ln -sf /usr/bin/emacs /usr/bin/Emacs
 sed -i "s|# %wheel ALL=(ALL:ALL) NOPASSWD: ALL|%wheel ALL=(ALL:ALL) NOPASSWD: ALL|g" /etc/sudoers
 
 # Git configuration
-git clone https://github.com/Kirara17233/config /etc/config
-git --git-dir=/etc/config/.git --work-tree=/etc/config remote set-url origin git@github.com:Kirara17233/config
-ln -sf /etc/config/.gitconfig /etc/skel/.gitconfig
-ln -sf /etc/config/.gitconfig /root/.gitconfig
+git clone https://github.com/Kirara17233/configs /etc/configs
+git --git-dir=/etc/configs/.git --work-tree=/etc/configs remote set-url origin git@github.com:Kirara17233/configs
+ln -sf /etc/configs/.gitconfig /etc/skel/.gitconfig
+ln -sf /etc/configs/.gitconfig /root/.gitconfig
 
 # SSH configuration
 mkdir /etc/skel/.ssh
 #mkdir /root/.ssh
-ln -sf /etc/config/.ssh/authorized_keys /etc/skel/.ssh/authorized_keys
+ln -sf /etc/configs/.ssh/authorized_keys /etc/skel/.ssh/authorized_keys
 touch /etc/ssh/id_rsa
 ln -sf /etc/ssh/id_rsa /etc/skel/.ssh/id_rsa
 ln -sf /etc/ssh/id_rsa /root/.ssh/id_rsa
@@ -42,25 +42,25 @@ git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git /etc/oh-my-zsh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /etc/oh-my-zsh/custom/themes/powerlevel10k
 git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git /etc/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git /etc/oh-my-zsh/custom/plugins/zsh-autosuggestions
-ln -sf /etc/config/.zshrc /etc/skel/.zshrc
-ln -sf /etc/config/.zshrc /root/.zshrc
+ln -sf /etc/configs/.zshrc /etc/skel/.zshrc
+ln -sf /etc/configs/.zshrc /root/.zshrc
 
 # Xmonad and sound system configuration
 if [ $model -eq 1 ];then
   rm -rf /usr/local/bin
-  ln -sf /etc/config/bin /usr/local
+  ln -sf /etc/configs/bin /usr/local
   mkdir /etc/skel/.xmonad
-  ln -sf /etc/config/.xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs
+  ln -sf /etc/configs/.xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs
   mkdir /etc/skel/.config
   mkdir /etc/skel/.config/rofi
   mkdir /etc/skel/.config/xmobar
   mkdir /etc/skel/.config/bpytop
   echo '@theme "/usr/share/rofi/themes/DarkBlue.rasi"' > /etc/skel/.config/rofi/config.rasi
-  ln -sf /etc/config/.config/xmobar/xmobar.hs /etc/skel/.config/xmobar/xmobar.hs
-  ln -sf /etc/config/.config/bpytop/bpytop.conf /etc/skel/.config/bpytop/bpytop.conf
-  ln -sf /etc/config/.config/bpytop/themes /etc/skel/.config/bpytop/themes
+  ln -sf /etc/configs/.config/xmobar/xmobar.hs /etc/skel/.config/xmobar/xmobar.hs
+  ln -sf /etc/configs/.config/bpytop/bpytop.conf /etc/skel/.config/bpytop/bpytop.conf
+  ln -sf /etc/configs/.config/bpytop/themes /etc/skel/.config/bpytop/themes
   mkdir /var/lib/alsa
-  ln -sf /etc/config/asound.state /var/lib/alsa/asound.state
+  ln -sf /etc/configs/asound.state /var/lib/alsa/asound.state
   mkdir /etc/skel/.config/gtk-3.0
   mkdir /etc/skel/.config/xfce4
   mkdir /etc/skel/.config/xfce4/xfconf
@@ -68,9 +68,9 @@ if [ $model -eq 1 ];then
   mkdir /etc/skel/.config/termonad
   echo "[Settings]
 gtk-application-prefer-dark-theme=true" > /etc/skel/.config/gtk-3.0/settings.ini
-  ln -sf /etc/config/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-  ln -sf /etc/config/.config/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs
-  ln -sf /etc/config/picom.conf /etc/xdg/picom.conf
+  ln -sf /etc/configs/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+  ln -sf /etc/configs/.config/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs
+  ln -sf /etc/configs/picom.conf /etc/xdg/picom.conf
 fi
 
 # Localization
@@ -103,7 +103,7 @@ sed -i "8i /dev/sdb1			/home/$user/Desktop		ext4		defaults	0 0" /etc/fstab
 # Neovim configuration
 mkdir /etc/xdg/nvim/autoload
 curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-ln -sf /etc/config/archlinux.vim /usr/share/nvim/archlinux.vim
+ln -sf /etc/configs/archlinux.vim /usr/share/nvim/archlinux.vim
 
 # Enable dhcpcd and ssh
 systemctl enable dhcpcd sshd
