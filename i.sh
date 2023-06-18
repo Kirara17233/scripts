@@ -15,7 +15,7 @@ g     # create a new empty GPT(GUID) partition table
 n     # add a new partition as EFI system
       # default partition number: 1
       # default starting sector
-+256M # +256M as ending sector
++128M # +128M as ending sector
 t     # change the partition type
 1     # EFI System
 n     # add a new partition
