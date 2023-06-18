@@ -81,8 +81,8 @@ gtk-application-prefer-dark-theme=true' > /etc/skel/.config/gtk-3.0/settings.ini
 fi
 
 # Localization
-run "sed -i \"s|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|g\" /etc/locale.gen"
-run "sed -i \"s|#zh_CN.UTF-8 UTF-8|zh_CN.UTF-8 UTF-8|g\" /etc/locale.gen"
+run "sed -i 's|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|g' /etc/locale.gen"
+run "sed -i 's|#zh_CN.UTF-8 UTF-8|zh_CN.UTF-8 UTF-8|g' /etc/locale.gen"
 run "locale-gen"
 run "echo LANG=en_US.UTF-8 > /etc/locale.conf"
 
@@ -104,7 +104,7 @@ run "dd if=/dev/zero of=/swapfile bs=1G count=$swapsize status=progress"
 run "chmod 600 /swapfile"
 run "mkswap /swapfile"
 run "swapon /swapfile"
-run "sed -i \"7i /swapfile					none		swap		defaults	0 0\" /etc/fstab"
+run "sed -i '7i /swapfile					none		swap		defaults	0 0' /etc/fstab"
 run "sed -i \"8i /dev/sdb1			/home/$user/Desktop		ext4		defaults	0 0\" /etc/fstab"
 
 # Neovim configuration
@@ -147,7 +147,7 @@ EOF
 
   # Open autologin
   run "sed -i \"s|#autologin-user=|autologin-user=$user|g\" /etc/lightdm/lightdm.conf"
-  run "sed -i \"s|#autologin-session=|autologin-session=xmonad|g\" /etc/lightdm/lightdm.conf"
+  run "sed -i 's|#autologin-session=|autologin-session=xmonad|g' /etc/lightdm/lightdm.conf"
 fi
 
 # Cleanup script
