@@ -7,6 +7,8 @@ user=$4
 userpw=$5
 model=$6
 
+sed -i "s|#ParallelDownloads|ParallelDownloads|g" /etc/pacman.conf
+
 # Partition the disks
 sed -e "s| *#.*||g" << EOF | fdisk /dev/sda
 g     # create a new empty GPT(GUID) partition table
