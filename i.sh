@@ -48,7 +48,7 @@ curl -o /mnt/chroot.sh https://raw.githubusercontent.com/Kirara17233/script/main
 chmod +x /mnt/chroot.sh
 
 # Chroot
-arch-chroot /mnt /chroot.sh $hostname $swapsize $rootpw $user $userpw $model"
+arch-chroot /mnt /chroot.sh $hostname $swapsize $rootpw $user $userpw $model
 
 # Reboot
 umount /mnt/boot
