@@ -51,5 +51,5 @@ chmod +x /mnt/chroot.sh
 arch-chroot /mnt /chroot.sh $hostname $swapsize $rootpw $user $userpw $model
 
 # Reboot
-umount /mnt/boot
+umount -R /mnt
 reboot
