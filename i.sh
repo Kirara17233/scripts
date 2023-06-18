@@ -46,15 +46,15 @@ run "rm /mnt/etc/skel/.bash*"
 run "sed -i \"s|/bin/bash|/usr/bin/zsh|g\" /mnt/etc/default/useradd /mnt/etc/passwd"
 
 # Generate an fstab file
-genfstab -U /mnt >> /mnt/etc/fstab
+run "genfstab -U /mnt >> /mnt/etc/fstab"
 
 # Get chroot.sh
 run "curl -o /mnt/chroot.sh https://raw.githubusercontent.com/Kirara17233/script/main/chroot.sh"
 run "chmod +x /mnt/chroot.sh"
 
 # Chroot
-arch-chroot /mnt /chroot.sh $hostname $swapsize $rootpw $user $userpw $model
+run "arch-chroot /mnt /chroot.sh $hostname $swapsize $rootpw $user $userpw $model"
 
 # Reboot
 run "umount /mnt/boot"
-reboot
+run "reboot"
