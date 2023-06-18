@@ -7,15 +7,8 @@ user=$4
 userpw=$5
 model=$6
 
-run() {
-  echo $1 | zsh
-  if [ $? -ne 0 ]; then
-    run $1
-  fi
-}
-
 # Partition the disks
-run "sed -e \"s| *#.*||g\" << EOF | fdisk /dev/sda
+sed -e "s| *#.*||g" << EOF | fdisk /dev/sda
 g     # create a new empty GPT(GUID) partition table
 n     # add a new partition as EFI system
       # default partition number: 1
@@ -28,33 +21,33 @@ n     # add a new partition
       # default starting sector
       # ending sector(all the remaining space)
 w     # write table to disk and exit
-EOF"
+EOF
 
 # Format the partitions
-run "mkfs.fat -F32 /dev/sda1"
-run "mkfs.ext4 /dev/sda2"
+mkfs.fat -F32 /dev/sda1
+mkfs.ext4 /dev/sda2
 
 # Mount the file systems
-run "mount /dev/sda2 /mnt"
-run "mount --mkdir /dev/sda1 /mnt/boot"
+mount /dev/sda2 /mnt
+mount --mkdir /dev/sda1 /mnt/boot
 
 # Install basic packages
-run "pacstrap -K /mnt base base-devel linux linux-firmware dhcpcd openssh gdb neovim emacs sudo zsh git neofetch intel-ucode grub efibootmgr docker"
+pacstrap -K /mnt base base-devel linux linux-firmware dhcpcd openssh gdb neovim emacs sudo zsh git neofetch intel-ucode grub efibootmgr docker
 
 # Change the default shell to zsh
-run "rm /mnt/etc/skel/.bash*"
-run "sed -i \"s|/bin/bash|/usr/bin/zsh|g\" /mnt/etc/default/useradd /mnt/etc/passwd"
+rm /mnt/etc/skel/.bash*
+sed -i "s|/bin/bash|/usr/bin/zsh|g" /mnt/etc/default/useradd /mnt/etc/passwd
 
 # Generate an fstab file
-run "genfstab -U /mnt >> /mnt/etc/fstab"
+genfstab -U /mnt >> /mnt/etc/fstab
 
 # Get chroot.sh
-run "curl -o /mnt/chroot.sh https://raw.githubusercontent.com/Kirara17233/script/main/chroot.sh"
-run "chmod +x /mnt/chroot.sh"
+curl -o /mnt/chroot.sh https://raw.githubusercontent.com/Kirara17233/script/main/chroot.sh
+chmod +x /mnt/chroot.sh
 
 # Chroot
-run "arch-chroot /mnt /chroot.sh $hostname $swapsize $rootpw $user $userpw $model"
+arch-chroot /mnt /chroot.sh $hostname $swapsize $rootpw $user $userpw $model"
 
 # Reboot
-run "umount /mnt/boot"
-run "reboot"
+umount /mnt/boot
+reboot
