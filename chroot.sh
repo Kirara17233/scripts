@@ -18,8 +18,9 @@ run() {
 run "ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime"
 run "hwclock --systohc"
 
-# Open pacman's color option
+# Open pacman's option
 run "sed -i 's|#Color|Color|g' /etc/pacman.conf"
+run "sed -i 's|#ParallelDownloads|ParallelDownloads|g' /etc/pacman.conf"
 
 # Link vi and vim to neovim
 run "ln -sf /usr/bin/nvim /usr/bin/vi"
