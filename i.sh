@@ -34,7 +34,7 @@ mount /dev/sda2 /mnt
 mount --mkdir /dev/sda1 /mnt/boot
 
 # Install basic packages
-pacstrap -K /mnt base base-devel linux linux-firmware dhcpcd openssh gdb neovim emacs sudo zsh git neofetch intel-ucode grub efibootmgr docker
+pacstrap -K /mnt base base-devel linux linux-firmware dhcpcd stow openssh gdb neovim emacs sudo zsh git neofetch intel-ucode grub efibootmgr docker
 
 # Change the default shell to zsh
 rm /mnt/etc/skel/.bash*
