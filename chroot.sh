@@ -7,43 +7,26 @@ user=$4
 userpw=$5
 model=$6
 
+# Git configuration
+git clone https://github.com/Kirara17233/configs /configs
+git --git-dir=/configs/.git --work-tree=/configs remote set-url origin git@github.com:Kirara17233/configs
+stow --no-folding -d /configs cli
+
 # Set the time zone
-ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 hwclock --systohc
 
 # Open pacman's option
 sed -i "s|#Color|Color|g" /etc/pacman.conf
 sed -i "s|#ParallelDownloads|ParallelDownloads|g" /etc/pacman.conf
 
-# Link vi and vim to neovim
-ln -sf /usr/bin/nvim /usr/bin/vi
-ln -sf /usr/bin/nvim /usr/bin/vim
-ln -sf /usr/bin/emacs /usr/bin/Emacs
-
 # Change sudo
 sed -i "s|# %wheel ALL=(ALL:ALL) NOPASSWD: ALL|%wheel ALL=(ALL:ALL) NOPASSWD: ALL|g" /etc/sudoers
-
-# Git configuration
-git clone https://github.com/Kirara17233/configs /etc/configs
-git --git-dir=/etc/configs/.git --work-tree=/etc/configs remote set-url origin git@github.com:Kirara17233/configs
-ln -sf /etc/configs/.gitconfig /etc/skel/.gitconfig
-ln -sf /etc/configs/.gitconfig /root/.gitconfig
-
-# SSH configuration
-mkdir /etc/skel/.ssh
-#mkdir /root/.ssh
-ln -sf /etc/configs/.ssh/authorized_keys /etc/skel/.ssh/authorized_keys
-touch /etc/ssh/id_rsa
-ln -sf /etc/ssh/id_rsa /etc/skel/.ssh/id_rsa
-ln -sf /etc/ssh/id_rsa /root/.ssh/id_rsa
 
 # Zsh configuration
 git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git /etc/oh-my-zsh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /etc/oh-my-zsh/custom/themes/powerlevel10k
 git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git /etc/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git /etc/oh-my-zsh/custom/plugins/zsh-autosuggestions
-ln -sf /etc/configs/.zshrc /etc/skel/.zshrc
-ln -sf /etc/configs/.zshrc /root/.zshrc
 
 # Xmonad and sound system configuration
 if [ $model -eq 1 ];then
@@ -61,11 +44,6 @@ if [ $model -eq 1 ];then
   ln -sf /etc/configs/.config/bpytop/themes /etc/skel/.config/bpytop/themes
   mkdir /var/lib/alsa
   ln -sf /etc/configs/asound.state /var/lib/alsa/asound.state
-  mkdir /etc/skel/.config/gtk-3.0
-  mkdir /etc/skel/.config/xfce4
-  mkdir /etc/skel/.config/xfce4/xfconf
-  mkdir /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
-  mkdir /etc/skel/.config/termonad
   echo "[Settings]
 gtk-application-prefer-dark-theme=true" > /etc/skel/.config/gtk-3.0/settings.ini
   ln -sf /etc/configs/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
@@ -103,7 +81,6 @@ sed -i "8i /dev/sdb1			/home/$user/Desktop		ext4		defaults	0 0" /etc/fstab
 # Neovim configuration
 mkdir /etc/xdg/nvim/autoload
 curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-ln -sf /etc/configs/archlinux.vim /usr/share/nvim/archlinux.vim
 
 # Enable dhcpcd and ssh
 systemctl enable dhcpcd sshd
