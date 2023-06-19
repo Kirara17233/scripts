@@ -133,6 +133,7 @@ if [ $model -eq 1 ];then
 EOF
   chown -R $user /opt/visual-studio-code
   git clone --depth=1 https://github.com/cdepillabout/termonad /etc/termonad
+  up-termonad
 
   systemctl enable lightdm vmtoolsd vmware-vmblock-fuse
 
