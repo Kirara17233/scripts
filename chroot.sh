@@ -30,25 +30,11 @@ git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git /etc/oh
 
 # Xmonad and sound system configuration
 if [ $model -eq 1 ];then
-  rm -rf /usr/local/bin
-  ln -sf /etc/configs/bin /usr/local
-  mkdir /etc/skel/.xmonad
-  ln -sf /etc/configs/.xmonad/xmonad.hs /etc/skel/.xmonad/xmonad.hs
-  mkdir /etc/skel/.config
+  stow --no-folding -d /configs gui
   mkdir /etc/skel/.config/rofi
-  mkdir /etc/skel/.config/xmobar
-  mkdir /etc/skel/.config/bpytop
   echo '@theme "/usr/share/rofi/themes/DarkBlue.rasi"' > /etc/skel/.config/rofi/config.rasi
-  ln -sf /etc/configs/.config/xmobar/xmobar.hs /etc/skel/.config/xmobar/xmobar.hs
-  ln -sf /etc/configs/.config/bpytop/bpytop.conf /etc/skel/.config/bpytop/bpytop.conf
-  ln -sf /etc/configs/.config/bpytop/themes /etc/skel/.config/bpytop/themes
-  mkdir /var/lib/alsa
-  ln -sf /etc/configs/asound.state /var/lib/alsa/asound.state
   echo "[Settings]
 gtk-application-prefer-dark-theme=true" > /etc/skel/.config/gtk-3.0/settings.ini
-  ln -sf /etc/configs/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-  ln -sf /etc/configs/.config/termonad/termonad.hs /etc/skel/.config/termonad/termonad.hs
-  ln -sf /etc/configs/picom.conf /etc/xdg/picom.conf
 fi
 
 # Localization
