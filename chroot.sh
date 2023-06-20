@@ -10,6 +10,7 @@ model=$6
 # Git configuration
 git clone https://github.com/Kirara17233/configs /configs
 git --git-dir=/configs/.git --work-tree=/configs remote set-url origin git@github.com:Kirara17233/configs
+rm /usr/share/nvim/archlinux.vim
 stow --no-folding -d /configs cli
 
 # Set the time zone
@@ -33,6 +34,7 @@ if [ $model -eq 1 ];then
   stow --no-folding -d /configs gui
   mkdir /etc/skel/.config/rofi
   echo '@theme "/usr/share/rofi/themes/DarkBlue.rasi"' > /etc/skel/.config/rofi/config.rasi
+  mkdir /etc/skel/.config/gtk-3.0
   echo "[Settings]
 gtk-application-prefer-dark-theme=true" > /etc/skel/.config/gtk-3.0/settings.ini
 fi
