@@ -10,8 +10,7 @@ model=$6
 # Git configuration
 git clone https://github.com/Kirara17233/configs /configs
 git --git-dir=/configs/.git --work-tree=/configs remote set-url origin git@github.com:Kirara17233/configs
-rm /usr/share/nvim/archlinux.vim
-stow --no-folding -d /configs cli
+cp -af /configs/cli/* /
 
 # Set the time zone
 hwclock --systohc
@@ -28,16 +27,6 @@ git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git /etc/oh-my-zsh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /etc/oh-my-zsh/custom/themes/powerlevel10k
 git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git /etc/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git /etc/oh-my-zsh/custom/plugins/zsh-autosuggestions
-
-# Xmonad and sound system configuration
-if [ $model -eq 1 ];then
-  stow --no-folding -d /configs gui
-  mkdir /etc/skel/.config/rofi
-  echo '@theme "/usr/share/rofi/themes/DarkBlue.rasi"' > /etc/skel/.config/rofi/config.rasi
-  mkdir /etc/skel/.config/gtk-3.0
-  echo "[Settings]
-gtk-application-prefer-dark-theme=true" > /etc/skel/.config/gtk-3.0/settings.ini
-fi
 
 # Localization
 sed -i "s|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|g" /etc/locale.gen
@@ -72,6 +61,11 @@ curl -fLo /etc/xdg/nvim/autoload/plug.vim https://raw.githubusercontent.com/june
 
 # Enable dhcpcd and ssh
 systemctl enable dhcpcd sshd
+
+# Xmonad and sound system configuration
+if [ $model -eq 1 ];then
+  cp -af /configs/gui/* /
+fi
 
 # Add a new user
 useradd -m -G wheel $user
