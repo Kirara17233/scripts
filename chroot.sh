@@ -13,7 +13,7 @@ git --git-dir=/configs/.git --work-tree=/configs remote set-url origin git@githu
 cp -af /configs/cli/* /
 
 # Set the time zone
-cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+cp /usr/share/zoneinfo/PRC /etc/localtime
 hwclock --systohc
 
 # Open pacman's option
