@@ -16,9 +16,12 @@ cp -af /configs/cli/* /
 cp /usr/share/zoneinfo/PRC /etc/localtime
 hwclock --systohc
 
-# Open pacman's option
+# Open pacman and makepkg's option
 sed -i "s|#Color|Color|g" /etc/pacman.conf
 sed -i "s|#ParallelDownloads|ParallelDownloads|g" /etc/pacman.conf
+sed -i "s|-march=x86-64 -mtune=generic|-march=native|g" /etc/makepkg.conf
+sed -i "s|-Cforce-frame-pointers=yes|-Cforce-frame-pointers=yes -C target-cpu=native|g" /etc/makepkg.conf
+sed -i "s|#MAKEFLAGS=\"-j|MAKEFLAGS=\"-j1|g" /etc/makepkg.conf
 
 # Change sudo
 sed -i "s|# %wheel ALL=(ALL:ALL) NOPASSWD: ALL|%wheel ALL=(ALL:ALL) NOPASSWD: ALL|g" /etc/sudoers
